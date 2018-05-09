@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.rocketmq.store.MessageStore</OriginalElement>
+  <nodes>
+    <node x="0.0" y="80.0">org.apache.rocketmq.store.DefaultMessageStore</node>
+    <node x="185.0" y="80.0">org.apache.rocketmq.broker.plugin.AbstractPluginMessageStore</node>
+    <node x="126.25" y="0.0">org.apache.rocketmq.store.MessageStore</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.rocketmq.broker.plugin.AbstractPluginMessageStore" target="org.apache.rocketmq.store.MessageStore">
+      <point x="0.0" y="-15.0" />
+      <point x="291.0" y="55.0" />
+      <point x="217.0" y="55.0" />
+      <point x="30.25" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.DefaultMessageStore" target="org.apache.rocketmq.store.MessageStore">
+      <point x="0.0" y="-15.0" />
+      <point x="82.5" y="55.0" />
+      <point x="156.5" y="55.0" />
+      <point x="-30.25" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="75.5" y="35.0" />
+  <SelectedNodes>
+    <node>org.apache.rocketmq.store.MessageStore</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.rocketmq.client.producer.MQProducer</OriginalElement>
+  <nodes>
+    <node x="45.0" y="0.0">org.apache.rocketmq.client.MQAdmin</node>
+    <node x="36.5" y="80.0">org.apache.rocketmq.client.producer.MQProducer</node>
+    <node x="0.0" y="240.0">org.apache.rocketmq.client.producer.TransactionMQProducer</node>
+    <node x="14.5" y="160.0">org.apache.rocketmq.client.producer.DefaultMQProducer</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.rocketmq.client.producer.MQProducer" target="org.apache.rocketmq.client.MQAdmin">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.producer.TransactionMQProducer" target="org.apache.rocketmq.client.producer.DefaultMQProducer">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.producer.DefaultMQProducer" target="org.apache.rocketmq.client.producer.MQProducer">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="55.5" y="135.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

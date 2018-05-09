@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.rocketmq.client.impl.producer.TopicPublishInfo</OriginalElement>
+  <nodes>
+    <node x="0.0" y="80.0">org.apache.rocketmq.client.impl.producer.TopicPublishInfo</node>
+    <node x="4.5" y="0.0">org.apache.rocketmq.common.message.MessageQueue</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.rocketmq.client.impl.producer.TopicPublishInfo" target="org.apache.rocketmq.common.message.MessageQueue">
+      <point x="34.25" y="-15.0" />
+      <point x="102.75" y="55.0" />
+      <point x="100.5" y="55.0" />
+      <point x="32.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="68.5" y="55.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
