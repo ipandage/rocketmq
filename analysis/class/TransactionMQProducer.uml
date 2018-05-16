@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.rocketmq.client.producer.TransactionMQProducer</OriginalElement>
+  <nodes>
+    <node x="185.55282738095238" y="160.0">org.apache.rocketmq.client.impl.MQClientAPIImpl</node>
+    <node x="319.80282738095235" y="80.0">org.apache.rocketmq.client.ClientConfig</node>
+    <node x="138.80282738095235" y="80.0">org.apache.rocketmq.remoting.netty.NettyRemotingClient</node>
+    <node x="8.5" y="240.0">org.apache.rocketmq.client.MQAdmin</node>
+    <node x="0.0" y="320.0">org.apache.rocketmq.client.producer.MQProducer</node>
+    <node x="131.00000000000003" y="320.0">org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl</node>
+    <node x="199.05282738095244" y="490.0">org.apache.rocketmq.client.producer.TransactionMQProducer</node>
+    <node x="129.80282738095232" y="0.0">org.apache.rocketmq.remoting.netty.NettyRemotingAbstract</node>
+    <node x="230.09523809523807" y="240.0">org.apache.rocketmq.client.impl.factory.MQClientInstance</node>
+    <node x="213.55282738095244" y="410.0">org.apache.rocketmq.client.producer.DefaultMQProducer</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.rocketmq.client.producer.MQProducer" target="org.apache.rocketmq.client.MQAdmin">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.producer.TransactionMQProducer" target="org.apache.rocketmq.client.producer.DefaultMQProducer">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.MQClientAPIImpl" target="org.apache.rocketmq.client.ClientConfig">
+      <point x="33.74999999999997" y="-15.0" />
+      <point x="286.80282738095235" y="135.0" />
+      <point x="338.13616071428567" y="135.0" />
+      <point x="-36.666666666666686" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.producer.DefaultMQProducer" target="org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl">
+      <point x="-22.142857142857167" y="-15.0" />
+      <point x="268.9099702380953" y="370.0" />
+      <point x="221.00000000000003" y="370.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.producer.DefaultMQProducer" target="org.apache.rocketmq.client.ClientConfig">
+      <point x="66.42857142857144" y="-15.0" />
+      <point x="357.48139880952385" y="390.0" />
+      <point x="404.17857142857144" y="390.0" />
+      <point x="404.17857142857144" y="135.0" />
+      <point x="411.46949404761904" y="135.0" />
+      <point x="36.666666666666686" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.factory.MQClientInstance" target="org.apache.rocketmq.client.producer.DefaultMQProducer">
+      <point x="47.33333333333337" y="15.0" />
+      <point x="348.42857142857144" y="295.0" />
+      <point x="342.55282738095235" y="295.0" />
+      <point x="342.55282738095235" y="390.0" />
+      <point x="335.33854166666674" y="390.0" />
+      <point x="44.28571428571428" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.remoting.netty.NettyRemotingClient" target="org.apache.rocketmq.remoting.netty.NettyRemotingAbstract">
+      <point x="-2.8421709430404007E-14" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.producer.DefaultMQProducer" target="org.apache.rocketmq.client.producer.MQProducer">
+      <point x="-66.42857142857147" y="-15.0" />
+      <point x="224.62425595238096" y="390.0" />
+      <point x="55.5" y="390.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.MQClientAPIImpl" target="org.apache.rocketmq.remoting.netty.NettyRemotingClient">
+      <point x="-33.75000000000003" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.factory.MQClientInstance" target="org.apache.rocketmq.client.impl.MQClientAPIImpl">
+      <point x="-47.33333333333334" y="-15.0" />
+      <point x="253.76190476190473" y="215.0" />
+      <point x="219.30282738095238" y="215.0" />
+      <point x="-33.75" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.factory.MQClientInstance" target="org.apache.rocketmq.client.ClientConfig">
+      <point x="47.333333333333314" y="-15.0" />
+      <point x="348.4285714285714" y="215.0" />
+      <point x="387.63616071428567" y="215.0" />
+      <point x="387.63616071428567" y="135.0" />
+      <point x="374.80282738095235" y="135.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl" target="org.apache.rocketmq.client.impl.factory.MQClientInstance">
+      <point x="2.8421709430404007E-14" y="-15.0" />
+      <point x="221.00000000000006" y="295.0" />
+      <point x="253.76190476190473" y="295.0" />
+      <point x="-47.33333333333334" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl" target="org.apache.rocketmq.client.producer.DefaultMQProducer">
+      <point x="60.00000000000003" y="15.0" />
+      <point x="281.00000000000006" y="390.0" />
+      <point x="291.0528273809524" y="390.0" />
+      <point x="-5.6843418860808015E-14" y="-15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.1671140882703992" x="232.6820033762745" y="211.3640031208967" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

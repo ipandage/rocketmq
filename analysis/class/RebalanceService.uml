@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.rocketmq.client.impl.consumer.RebalanceService</OriginalElement>
+  <nodes>
+    <node x="266.125" y="400.0">org.apache.rocketmq.client.impl.consumer.RebalanceImpl</node>
+    <node x="92.0673076923077" y="160.0">org.apache.rocketmq.common.ServiceThread</node>
+    <node x="69.50000000000001" y="0.0">java.lang.FunctionalInterface</node>
+    <node x="36.5" y="480.0">org.apache.rocketmq.client.impl.consumer.RebalancePushImpl</node>
+    <node x="29.917307692307645" y="560.0">org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl</node>
+    <node x="132.81730769230768" y="240.0">org.apache.rocketmq.client.impl.consumer.PullMessageService</node>
+    <node x="158.93557692307692" y="320.0">org.apache.rocketmq.client.impl.factory.MQClientInstance</node>
+    <node x="100.00000000000001" y="80.0">java.lang.Runnable</node>
+    <node x="106.125" y="400.0">org.apache.rocketmq.client.impl.consumer.RebalanceService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl" target="java.lang.Runnable">
+      <point x="-87.19999999999996" y="-15.0" />
+      <point x="51.717307692307685" y="540.0" />
+      <point x="26.0" y="540.0" />
+      <point x="26.0" y="130.0" />
+      <point x="109.10000000000001" y="130.0" />
+      <point x="-36.400000000000006" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.PullMessageService" target="org.apache.rocketmq.client.impl.factory.MQClientInstance">
+      <point x="51.333333333333314" y="15.0" />
+      <point x="261.150641025641" y="295.0" />
+      <point x="247.68557692307695" y="295.0" />
+      <point x="17.75000000000003" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.RebalanceService" target="org.apache.rocketmq.client.impl.factory.MQClientInstance">
+      <point x="-17.5" y="-15.0" />
+      <point x="158.625" y="380.0" />
+      <point x="173.13557692307694" y="380.0" />
+      <point x="-56.79999999999998" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.RebalancePushImpl" target="org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl">
+      <point x="38.0" y="15.0" />
+      <point x="150.5" y="540.0" />
+      <point x="138.91730769230767" y="540.0" />
+      <point x="2.8421709430404007E-14" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.RebalancePushImpl" target="java.lang.Runnable">
+      <point x="-38.0" y="-15.0" />
+      <point x="74.50000000000001" y="140.0" />
+      <point x="127.30000000000003" y="140.0" />
+      <point x="-18.19999999999999" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.RebalancePushImpl" target="org.apache.rocketmq.client.impl.consumer.RebalanceImpl">
+      <point x="38.0" y="-15.0" />
+      <point x="150.5" y="455.0" />
+      <point x="296.375" y="455.0" />
+      <point x="-30.25" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.factory.MQClientInstance" target="org.apache.rocketmq.client.impl.consumer.RebalanceService">
+      <point x="0.0" y="15.0" />
+      <point x="229.93557692307692" y="380.0" />
+      <point x="228.625" y="380.0" />
+      <point x="52.5" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl" target="org.apache.rocketmq.client.impl.consumer.RebalanceImpl">
+      <point x="43.599999999999994" y="-15.0" />
+      <point x="182.51730769230764" y="530.0" />
+      <point x="356.875" y="530.0" />
+      <point x="30.25" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.RebalanceImpl" target="org.apache.rocketmq.client.impl.factory.MQClientInstance">
+      <point x="0.0" y="-15.0" />
+      <point x="326.625" y="380.0" />
+      <point x="258.3355769230769" y="380.0" />
+      <point x="28.400000000000006" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.factory.MQClientInstance" target="java.lang.Runnable">
+      <point x="53.25000000000003" y="-15.0" />
+      <point x="283.18557692307695" y="295.0" />
+      <point x="297.3173076923077" y="295.0" />
+      <point x="297.3173076923077" y="130.0" />
+      <point x="181.90000000000003" y="130.0" />
+      <point x="36.400000000000006" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.RebalanceService" target="org.apache.rocketmq.common.ServiceThread">
+      <point x="-52.5" y="-15.0" />
+      <point x="123.625" y="380.0" />
+      <point x="122.3173076923077" y="380.0" />
+      <point x="-30.25" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.common.ServiceThread" target="java.lang.Runnable">
+      <point x="0.0" y="-15.0" />
+      <point x="152.56730769230768" y="140.0" />
+      <point x="145.5" y="140.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.PullMessageService" target="java.lang.Runnable">
+      <point x="38.5" y="-15.0" />
+      <point x="248.31730769230768" y="140.0" />
+      <point x="163.70000000000005" y="140.0" />
+      <point x="18.200000000000017" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl" target="org.apache.rocketmq.client.impl.factory.MQClientInstance">
+      <point x="87.20000000000002" y="-15.0" />
+      <point x="226.11730769230766" y="540.0" />
+      <point x="397.625" y="540.0" />
+      <point x="397.625" y="370.0" />
+      <point x="286.7355769230769" y="370.0" />
+      <point x="56.79999999999998" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.DefaultMQPushConsumerImpl" target="org.apache.rocketmq.client.impl.consumer.RebalancePushImpl">
+      <point x="-43.599999999999966" y="-15.0" />
+      <point x="95.31730769230768" y="540.0" />
+      <point x="74.5" y="540.0" />
+      <point x="-38.0" y="15.0" />
+    </edge>
+    <edge source="java.lang.Runnable" target="java.lang.FunctionalInterface">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.consumer.PullMessageService" target="org.apache.rocketmq.common.ServiceThread">
+      <point x="-38.5" y="-15.0" />
+      <point x="171.31730769230768" y="215.0" />
+      <point x="182.81730769230768" y="215.0" />
+      <point x="30.25" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.client.impl.factory.MQClientInstance" target="org.apache.rocketmq.client.impl.consumer.PullMessageService">
+      <point x="-53.24999999999997" y="-15.0" />
+      <point x="176.68557692307695" y="295.0" />
+      <point x="158.48397435897436" y="295.0" />
+      <point x="-51.33333333333334" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.203006348587939" x="326.2754107626104" y="286.3407838875058" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

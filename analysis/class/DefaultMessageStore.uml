@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.rocketmq.store.DefaultMessageStore</OriginalElement>
+  <nodes>
+    <node x="143.42074829931968" y="250.0">org.apache.rocketmq.store.DefaultMessageStore</node>
+    <node x="194.1227891156462" y="0.0">org.apache.rocketmq.store.MappedFile</node>
+    <node x="285.625" y="80.0">org.apache.rocketmq.store.index.IndexFile</node>
+    <node x="0.0" y="160.0">org.apache.rocketmq.store.MessageStore</node>
+    <node x="141.0" y="160.0">org.apache.rocketmq.store.CommitLog</node>
+    <node x="121.5" y="80.0">org.apache.rocketmq.store.MappedFileQueue</node>
+    <node x="273.625" y="160.0">org.apache.rocketmq.store.index.IndexService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.rocketmq.store.index.IndexFile" target="org.apache.rocketmq.store.MappedFile">
+      <point x="21.75" y="-15.0" />
+      <point x="350.875" y="50.0" />
+      <point x="286.82278911564623" y="50.0" />
+      <point x="41.19999999999999" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.DefaultMessageStore" target="org.apache.rocketmq.store.CommitLog">
+      <point x="-47.14285714285711" y="-15.0" />
+      <point x="178.77789115646257" y="220.0" />
+      <point x="158.33333333333334" y="220.0" />
+      <point x="-34.66666666666666" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.CommitLog" target="org.apache.rocketmq.store.MappedFileQueue">
+      <point x="-26.0" y="-15.0" />
+      <point x="167.0" y="135.0" />
+      <point x="157.25" y="135.0" />
+      <point x="-35.75" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.DefaultMessageStore" target="org.apache.rocketmq.store.index.IndexService">
+      <point x="23.571428571428612" y="-15.0" />
+      <point x="249.4921768707483" y="210.0" />
+      <point x="292.125" y="210.0" />
+      <point x="-37.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.MappedFileQueue" target="org.apache.rocketmq.store.MappedFile">
+      <point x="-2.8421709430404007E-14" y="-15.0" />
+      <point x="192.99999999999997" y="60.0" />
+      <point x="225.02278911564622" y="60.0" />
+      <point x="-20.599999999999994" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.CommitLog" target="org.apache.rocketmq.store.DefaultMessageStore">
+      <point x="34.66666666666666" y="15.0" />
+      <point x="227.66666666666666" y="230.0" />
+      <point x="225.9207482993197" y="230.0" />
+      <point x="2.8421709430404007E-14" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.index.IndexService" target="org.apache.rocketmq.store.index.IndexFile">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.index.IndexService" target="org.apache.rocketmq.store.DefaultMessageStore">
+      <point x="37.0" y="15.0" />
+      <point x="366.125" y="230.0" />
+      <point x="296.63503401360543" y="230.0" />
+      <point x="70.71428571428575" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.store.DefaultMessageStore" target="org.apache.rocketmq.store.MessageStore">
+      <point x="-70.7142857142857" y="-15.0" />
+      <point x="155.206462585034" y="230.0" />
+      <point x="60.5" y="230.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="192.5" y="140.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.apache.rocketmq.broker.processor.SendMessageProcessor</OriginalElement>
+  <nodes>
+    <node x="0.0" y="80.0">org.apache.rocketmq.store.stats.BrokerStatsManager</node>
+    <node x="321.0" y="80.0">org.apache.rocketmq.broker.processor.SendMessageProcessor</node>
+    <node x="372.08333333333337" y="0.0">org.apache.rocketmq.remoting.netty.NettyRequestProcessor</node>
+    <node x="180.0" y="80.0">org.apache.rocketmq.store.MessageStore</node>
+    <node x="111.01388888888889" y="160.0">org.apache.rocketmq.broker.BrokerController</node>
+    <node x="323.20833333333337" y="240.0">org.apache.rocketmq.broker.processor.AbstractSendMessageProcessor</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.apache.rocketmq.broker.processor.AbstractSendMessageProcessor" target="org.apache.rocketmq.remoting.netty.NettyRequestProcessor">
+      <point x="78.0" y="-15.0" />
+      <point x="518.2083333333334" y="215.0" />
+      <point x="512.5" y="215.0" />
+      <point x="512.5" y="55.0" />
+      <point x="507.08333333333337" y="55.0" />
+      <point x="45.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.broker.BrokerController" target="org.apache.rocketmq.store.stats.BrokerStatsManager">
+      <point x="-17.0" y="-15.0" />
+      <point x="162.01388888888889" y="130.0" />
+      <point x="120.0" y="130.0" />
+      <point x="40.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.broker.processor.SendMessageProcessor" target="org.apache.rocketmq.broker.processor.AbstractSendMessageProcessor">
+      <point x="45.25" y="15.0" />
+      <point x="456.75" y="215.0" />
+      <point x="440.20833333333337" y="215.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.broker.BrokerController" target="org.apache.rocketmq.store.MessageStore">
+      <point x="17.0" y="-15.0" />
+      <point x="196.01388888888889" y="130.0" />
+      <point x="240.5" y="130.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.broker.processor.SendMessageProcessor" target="org.apache.rocketmq.remoting.netty.NettyRequestProcessor">
+      <point x="0.0" y="-15.0" />
+      <point x="411.5" y="55.0" />
+      <point x="417.08333333333337" y="55.0" />
+      <point x="-45.0" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.broker.BrokerController" target="org.apache.rocketmq.broker.processor.SendMessageProcessor">
+      <point x="51.0" y="-15.0" />
+      <point x="230.01388888888889" y="140.0" />
+      <point x="366.25" y="140.0" />
+      <point x="-45.25" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.broker.processor.AbstractSendMessageProcessor" target="org.apache.rocketmq.broker.BrokerController">
+      <point x="-78.0" y="-15.0" />
+      <point x="362.20833333333337" y="215.0" />
+      <point x="179.01388888888889" y="215.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="279.0" y="135.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
