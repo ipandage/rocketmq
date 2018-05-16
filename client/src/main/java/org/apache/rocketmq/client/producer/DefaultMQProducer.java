@@ -115,7 +115,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
     private boolean retryAnotherBrokerWhenNotStoreOK = false;
 
     /**
-     * Maximum allowed message size in bytes.
+     * Maximum allowed message size in bytes. 允许最大的消息大小 4M
      */
     private int maxMessageSize = 1024 * 1024 * 4; // 4M
 

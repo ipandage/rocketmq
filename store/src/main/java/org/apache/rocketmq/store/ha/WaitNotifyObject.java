@@ -61,6 +61,9 @@ public class WaitNotifyObject {
     protected void onWaitEnd() {
     }
 
+    /**
+     * 唤醒所有
+     */
     public void wakeupAll() {
         synchronized (this) {
             boolean needNotify = false;

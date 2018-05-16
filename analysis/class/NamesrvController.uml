@@ -3,26 +3,71 @@
   <ID>JAVA</ID>
   <OriginalElement>org.apache.rocketmq.namesrv.NamesrvController</OriginalElement>
   <nodes>
-    <node x="0.0" y="0.0">org.apache.rocketmq.remoting.netty.NettyServerConfig</node>
-    <node x="78.75" y="80.0">org.apache.rocketmq.namesrv.NamesrvController</node>
-    <node x="168.0" y="0.0">org.apache.rocketmq.common.namesrv.NamesrvConfig</node>
+    <node x="123.0" y="0.0">org.apache.rocketmq.namesrv.routeinfo.BrokerLiveInfo</node>
+    <node x="266.0" y="0.0">org.apache.rocketmq.common.protocol.route.QueueData</node>
+    <node x="0.0" y="0.0">org.apache.rocketmq.common.protocol.route.BrokerData</node>
+    <node x="391.68055555555554" y="0.0">org.apache.rocketmq.remoting.RemotingServer</node>
+    <node x="225.0" y="240.0">org.apache.rocketmq.namesrv.kvconfig.KVConfigManager</node>
+    <node x="111.0" y="80.0">org.apache.rocketmq.namesrv.routeinfo.RouteInfoManager</node>
+    <node x="223.5" y="160.0">org.apache.rocketmq.namesrv.NamesrvController</node>
+    <node x="328.18055555555554" y="80.0">org.apache.rocketmq.remoting.netty.NettyRemotingServer</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="org.apache.rocketmq.namesrv.NamesrvController" target="org.apache.rocketmq.remoting.netty.NettyServerConfig">
-      <point x="-37.25" y="-15.0" />
-      <point x="116.0" y="55.0" />
-      <point x="74.0" y="55.0" />
+    <edge source="org.apache.rocketmq.namesrv.NamesrvController" target="org.apache.rocketmq.namesrv.routeinfo.RouteInfoManager">
+      <point x="-18.625" y="-15.0" />
+      <point x="279.375" y="130.0" />
+      <point x="221.25" y="130.0" />
+      <point x="36.75" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.namesrv.routeinfo.RouteInfoManager" target="org.apache.rocketmq.common.protocol.route.BrokerData">
+      <point x="-36.75" y="-15.0" />
+      <point x="147.75" y="50.0" />
+      <point x="77.25" y="50.0" />
+      <point x="25.75" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.namesrv.routeinfo.RouteInfoManager" target="org.apache.rocketmq.namesrv.routeinfo.BrokerLiveInfo">
+      <point x="12.25" y="-15.0" />
+      <point x="196.75" y="60.0" />
+      <point x="215.25" y="60.0" />
+      <point x="30.75" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.namesrv.NamesrvController" target="org.apache.rocketmq.remoting.netty.NettyRemotingServer">
+      <point x="18.625" y="-15.0" />
+      <point x="316.625" y="130.0" />
+      <point x="410.68055555555554" y="130.0" />
       <point x="0.0" y="15.0" />
     </edge>
-    <edge source="org.apache.rocketmq.namesrv.NamesrvController" target="org.apache.rocketmq.common.namesrv.NamesrvConfig">
-      <point x="37.25" y="-15.0" />
-      <point x="190.5" y="55.0" />
-      <point x="232.5" y="55.0" />
+    <edge source="org.apache.rocketmq.namesrv.NamesrvController" target="org.apache.rocketmq.remoting.RemotingServer">
+      <point x="55.875" y="-15.0" />
+      <point x="353.875" y="140.0" />
+      <point x="503.68055555555554" y="140.0" />
+      <point x="503.68055555555554" y="60.0" />
+      <point x="489.93055555555554" y="60.0" />
+      <point x="32.75" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.namesrv.NamesrvController" target="org.apache.rocketmq.namesrv.kvconfig.KVConfigManager">
       <point x="0.0" y="15.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.remoting.netty.NettyRemotingServer" target="org.apache.rocketmq.remoting.RemotingServer">
+      <point x="0.0" y="-15.0" />
+      <point x="410.68055555555554" y="60.0" />
+      <point x="424.43055555555554" y="60.0" />
+      <point x="-32.75" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.namesrv.kvconfig.KVConfigManager" target="org.apache.rocketmq.namesrv.NamesrvController">
+      <point x="-48.66666666666666" y="-15.0" />
+      <point x="-49.66666666666666" y="15.0" />
+    </edge>
+    <edge source="org.apache.rocketmq.namesrv.routeinfo.RouteInfoManager" target="org.apache.rocketmq.common.protocol.route.QueueData">
+      <point x="61.25" y="-15.0" />
+      <point x="245.75" y="60.0" />
+      <point x="342.5" y="60.0" />
+      <point x="25.5" y="15.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="148.5" y="55.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="261.5" y="135.0" />
   <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>

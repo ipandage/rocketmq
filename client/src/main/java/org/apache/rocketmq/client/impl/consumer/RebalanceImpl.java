@@ -50,7 +50,7 @@ public abstract class RebalanceImpl {
         new ConcurrentHashMap<String, Set<MessageQueue>>();
     protected final ConcurrentMap<String /* topic */, SubscriptionData> subscriptionInner =
         new ConcurrentHashMap<String, SubscriptionData>();
-    protected String consumerGroup;
+    protected String consumerGroup; // 消费者组
     protected MessageModel messageModel;
     protected AllocateMessageQueueStrategy allocateMessageQueueStrategy;
     protected MQClientInstance mQClientFactory;
@@ -277,6 +277,7 @@ public abstract class RebalanceImpl {
                     Collections.sort(mqAll);
                     Collections.sort(cidAll);
 
+                    // strategy 默认为 AllocateMessageQueueAveragely
                     AllocateMessageQueueStrategy strategy = this.allocateMessageQueueStrategy;
 
                     List<MessageQueue> allocateResult = null;

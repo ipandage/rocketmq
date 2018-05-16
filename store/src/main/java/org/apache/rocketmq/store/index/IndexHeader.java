@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class IndexHeader {
-    public static final int INDEX_HEADER_SIZE = 40;
+    public static final int INDEX_HEADER_SIZE = 40; // 索引头大小
     private static int beginTimestampIndex = 0;
     private static int endTimestampIndex = 8;
     private static int beginPhyoffsetIndex = 16;
@@ -29,10 +29,10 @@ public class IndexHeader {
     private static int hashSlotcountIndex = 32;
     private static int indexCountIndex = 36;
     private final ByteBuffer byteBuffer;
-    private AtomicLong beginTimestamp = new AtomicLong(0);
-    private AtomicLong endTimestamp = new AtomicLong(0);
-    private AtomicLong beginPhyOffset = new AtomicLong(0);
-    private AtomicLong endPhyOffset = new AtomicLong(0);
+    private AtomicLong beginTimestamp = new AtomicLong(0); // 开始时间戳
+    private AtomicLong endTimestamp = new AtomicLong(0); // 结束时间戳
+    private AtomicLong beginPhyOffset = new AtomicLong(0); // 物理偏移量开始
+    private AtomicLong endPhyOffset = new AtomicLong(0); // 物理偏移量结束
     private AtomicInteger hashSlotCount = new AtomicInteger(0);
 
     private AtomicInteger indexCount = new AtomicInteger(1);

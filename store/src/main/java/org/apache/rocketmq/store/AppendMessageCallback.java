@@ -21,6 +21,7 @@ import org.apache.rocketmq.common.message.MessageExtBatch;
 
 /**
  * Write messages callback interface
+ * 追加消息回调接口
  */
 public interface AppendMessageCallback {
 

@@ -51,6 +51,10 @@ public class UtilAll {
     public static final String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
     final static char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
+    /**
+     * 获得Pid
+     * @return
+     */
     public static int getPid() {
         RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
         String name = runtime.getName(); // format: "pid@hostname"
@@ -72,6 +76,11 @@ public class UtilAll {
         return sb.toString();
     }
 
+    /**
+     * 位移转文件名
+     * @param offset
+     * @return
+     */
     public static String offset2FileName(final long offset) {
         final NumberFormat nf = NumberFormat.getInstance();
         nf.setMinimumIntegerDigits(20);
@@ -223,6 +232,11 @@ public class UtilAll {
         return (int) (crc32.getValue() & 0x7FFFFFFF);
     }
 
+    /**
+     * 字节转字符串
+     * @param src
+     * @return
+     */
     public static String bytes2string(byte[] src) {
         char[] hexChars = new char[src.length * 2];
         for (int j = 0; j < src.length; j++) {
@@ -338,6 +352,12 @@ public class UtilAll {
         return df.format(date);
     }
 
+    /**
+     * 解析日期
+     * @param date
+     * @param pattern
+     * @return
+     */
     public static Date parseDate(String date, String pattern) {
         SimpleDateFormat df = new SimpleDateFormat(pattern);
         try {
@@ -361,6 +381,11 @@ public class UtilAll {
         return str;
     }
 
+    /**
+     * 是否为空
+     * @param str
+     * @return
+     */
     public static boolean isBlank(String str) {
         int strLen;
         if (str == null || (strLen = str.length()) == 0) {

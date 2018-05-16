@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 public class HAService {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
-
+    // 连接数
     private final AtomicInteger connectionCount = new AtomicInteger(0);
 
     private final List<HAConnection> connectionList = new LinkedList<>();
@@ -76,6 +76,11 @@ public class HAService {
         this.groupTransferService.putRequest(request);
     }
 
+    /**
+     * 从节点是否OK
+     * @param masterPutWhere
+     * @return
+     */
     public boolean isSlaveOK(final long masterPutWhere) {
         boolean result = this.connectionCount.get() > 0;
         result =

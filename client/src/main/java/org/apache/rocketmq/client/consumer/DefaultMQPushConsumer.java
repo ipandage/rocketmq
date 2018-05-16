@@ -131,12 +131,12 @@ public class DefaultMQPushConsumer extends ClientConfig implements MQPushConsume
     private AllocateMessageQueueStrategy allocateMessageQueueStrategy;
 
     /**
-     * Subscription relationship
+     * Subscription relationship 订阅关系
      */
     private Map<String /* topic */, String /* sub expression */> subscription = new HashMap<String, String>();
 
     /**
-     * Message listener
+     * Message listener 消息监听器
      */
     private MessageListener messageListener;
 

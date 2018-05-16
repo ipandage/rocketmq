@@ -1,0 +1,14 @@
+@startuml
+hide footbox
+title 接收消息
+autonumber
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+SendMessageProcessor -> SendMessageProcessor: processRequest()
+note over SendMessageProcessor:解析请求头
+SendMessageProcessor -> SendMessageProcessor: sendMessage()
+SendMessageProcessor -> SendMessageProcessor: handlePutMessageResult()
+SendMessageProcessor -> DefaultMessageStore: putMessage()
+note over DefaultMessageStore:存储消息
+@enduml

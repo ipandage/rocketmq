@@ -26,6 +26,11 @@ import org.apache.commons.cli.ParseException;
 
 public class ServerUtil {
 
+    /**
+     * 构造命令行option
+     * @param options
+     * @return
+     */
     public static Options buildCommandlineOptions(final Options options) {
         Option opt = new Option("h", "help", false, "Print help");
         opt.setRequired(false);
@@ -40,6 +45,14 @@ public class ServerUtil {
         return options;
     }
 
+    /**
+     * 解析命令行
+     * @param appName
+     * @param args
+     * @param options
+     * @param parser
+     * @return
+     */
     public static CommandLine parseCmdLine(final String appName, String[] args, Options options,
         CommandLineParser parser) {
         HelpFormatter hf = new HelpFormatter();
@@ -64,6 +77,11 @@ public class ServerUtil {
         hf.printHelp(appName, options, true);
     }
 
+    /**
+     * 命令行转属性
+     * @param commandLine
+     * @return
+     */
     public static Properties commandLine2Properties(final CommandLine commandLine) {
         Properties properties = new Properties();
         Option[] opts = commandLine.getOptions();

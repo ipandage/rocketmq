@@ -48,11 +48,11 @@ public class RequestCode {
 
     public static final int VIEW_MESSAGE_BY_ID = 33;
 
-    public static final int HEART_BEAT = 34;
+    public static final int HEART_BEAT = 34; // 心跳请求
 
     public static final int UNREGISTER_CLIENT = 35;
 
-    public static final int CONSUMER_SEND_MSG_BACK = 36;
+    public static final int CONSUMER_SEND_MSG_BACK = 36; // 消费发送消息返回
 
     public static final int END_TRANSACTION = 37;
     public static final int GET_CONSUMER_LIST_BY_GROUP = 38;
@@ -79,7 +79,7 @@ public class RequestCode {
     public static final int REGISTER_BROKER = 103;
 
     public static final int UNREGISTER_BROKER = 104;
-    public static final int GET_ROUTEINTO_BY_TOPIC = 105;
+    public static final int GET_ROUTEINTO_BY_TOPIC = 105; // 获得路由信息通过主题
 
     public static final int GET_BROKER_CLUSTER_INFO = 106;
     public static final int UPDATE_AND_CREATE_SUBSCRIPTIONGROUP = 200;

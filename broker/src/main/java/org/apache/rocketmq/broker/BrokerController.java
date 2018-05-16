@@ -125,12 +125,12 @@ public class BrokerController {
     private RemotingServer remotingServer;
     private RemotingServer fastRemotingServer;
     private TopicConfigManager topicConfigManager;
-    private ExecutorService sendMessageExecutor;
-    private ExecutorService pullMessageExecutor;
+    private ExecutorService sendMessageExecutor; // 处理发送请求
+    private ExecutorService pullMessageExecutor; // 处理拉取消息
     private ExecutorService queryMessageExecutor;
-    private ExecutorService adminBrokerExecutor;
-    private ExecutorService clientManageExecutor;
-    private ExecutorService consumerManageExecutor;
+    private ExecutorService adminBrokerExecutor; // 管理broker
+    private ExecutorService clientManageExecutor; // 管理client
+    private ExecutorService consumerManageExecutor; // 管理消费者
     private boolean updateMasterHAServerAddrPeriodically = false;
     private BrokerStats brokerStats;
     private InetSocketAddress storeHost;
@@ -197,13 +197,21 @@ public class BrokerController {
         return queryThreadPoolQueue;
     }
 
+    /**
+     * 初始化
+     * @return
+     * @throws CloneNotSupportedException
+     */
     public boolean initialize() throws CloneNotSupportedException {
+        // 加载topicConfigManager
         boolean result = this.topicConfigManager.load();
-
+        // 加载consumerOffsetManager
         result = result && this.consumerOffsetManager.load();
+        // 加载subscriptionGroupManager
         result = result && this.subscriptionGroupManager.load();
+        // 加载consumerFilterManager
         result = result && this.consumerFilterManager.load();
-
+        // 加载messageStore
         if (result) {
             try {
                 this.messageStore =
@@ -400,6 +408,7 @@ public class BrokerController {
         sendProcessor.registerSendMessageHook(sendMessageHookList);
         sendProcessor.registerConsumeMessageHook(consumeMessageHookList);
 
+        // 注册到消息处理器
         this.remotingServer.registerProcessor(RequestCode.SEND_MESSAGE, sendProcessor, this.sendMessageExecutor);
         this.remotingServer.registerProcessor(RequestCode.SEND_MESSAGE_V2, sendProcessor, this.sendMessageExecutor);
         this.remotingServer.registerProcessor(RequestCode.SEND_BATCH_MESSAGE, sendProcessor, this.sendMessageExecutor);
@@ -649,6 +658,10 @@ public class BrokerController {
         return this.brokerConfig.getBrokerIP1() + ":" + this.nettyServerConfig.getListenPort();
     }
 
+    /**
+     * 启动
+     * @throws Exception
+     */
     public void start() throws Exception {
         if (this.messageStore != null) {
             this.messageStore.start();

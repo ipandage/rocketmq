@@ -1,6 +1,13 @@
-### NameServer启动过程
+## 1 启动
+* 类图
 
-NamesrvController 类结构
+![](img/14.png)
 
+RouteInfoManager 路由信息管理类
 
-![test](img/01.png)
+* 启动流程
+
+![](img/15.png)
+
+* Namesrv 与broker 间的心跳
+

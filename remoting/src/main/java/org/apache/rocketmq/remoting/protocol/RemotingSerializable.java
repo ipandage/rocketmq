@@ -43,6 +43,10 @@ public abstract class RemotingSerializable {
         return JSON.parseObject(json, classOfT);
     }
 
+    /**
+     * 编码
+     * @return
+     */
     public byte[] encode() {
         final String json = this.toJson();
         if (json != null) {

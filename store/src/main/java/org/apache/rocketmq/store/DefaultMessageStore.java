@@ -526,6 +526,7 @@ public class DefaultMessageStore implements MessageStore {
                                 }
                             }
 
+                            // 消息过滤
                             if (messageFilter != null
                                 && !messageFilter.isMatchedByConsumeQueue(isTagsCodeLegal ? tagsCode : null, extRet ? cqExtUnit : null)) {
                                 if (getResult.getBufferTotalSize() == 0) {
@@ -1213,6 +1214,9 @@ public class DefaultMessageStore implements MessageStore {
         // }, 1, 1, TimeUnit.HOURS);
     }
 
+    /**
+     * 清理过期文件
+     */
     private void cleanFilesPeriodically() {
         this.cleanCommitLogService.run();
         this.cleanConsumeQueueService.run();
@@ -1398,11 +1402,15 @@ public class DefaultMessageStore implements MessageStore {
         return map.get(queueId);
     }
 
+    /**
+     * 解锁映射文件
+     * @param mappedFile
+     */
     public void unlockMappedFile(final MappedFile mappedFile) {
         this.scheduledExecutorService.schedule(new Runnable() {
             @Override
             public void run() {
-                mappedFile.munlock();
+                mappedFile.munlock(); // todo gxg
             }
         }, 6, TimeUnit.SECONDS);
     }

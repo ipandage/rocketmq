@@ -18,11 +18,11 @@ package org.apache.rocketmq.store;
 
 public enum PutMessageStatus {
     PUT_OK,
-    FLUSH_DISK_TIMEOUT,
-    FLUSH_SLAVE_TIMEOUT,
-    SLAVE_NOT_AVAILABLE,
+    FLUSH_DISK_TIMEOUT, // 刷新磁盘超时
+    FLUSH_SLAVE_TIMEOUT, // 刷新从节点超时
+    SLAVE_NOT_AVAILABLE, // 从节点无效
     SERVICE_NOT_AVAILABLE,
-    CREATE_MAPEDFILE_FAILED,
+    CREATE_MAPEDFILE_FAILED, // 创建映射文件失败
     MESSAGE_ILLEGAL,
     PROPERTIES_SIZE_EXCEEDED,
     OS_PAGECACHE_BUSY,

@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 public class RemotingCommand {
     public static final String SERIALIZE_TYPE_PROPERTY = "rocketmq.serialize.type";
     public static final String SERIALIZE_TYPE_ENV = "ROCKETMQ_SERIALIZE_TYPE";
+    // rocketmq 版本
     public static final String REMOTING_VERSION_KEY = "rocketmq.remoting.version";
     private static final Logger log = LoggerFactory.getLogger(RemotingHelper.ROCKETMQ_REMOTING);
     private static final int RPC_TYPE = 0; // 0, REQUEST_COMMAND
@@ -68,11 +69,12 @@ public class RemotingCommand {
             }
         }
     }
-
+    // 请求码
     private int code;
+    // 语言码
     private LanguageCode language = LanguageCode.JAVA;
-    private int version = 0;
-    private int opaque = requestId.getAndIncrement();
+    private int version = 0; // 命令版本
+    private int opaque = requestId.getAndIncrement(); // 一个 opaque 对应一个请求
     private int flag = 0;
     private String remark;
     private HashMap<String, String> extFields;
@@ -85,6 +87,12 @@ public class RemotingCommand {
     protected RemotingCommand() {
     }
 
+    /**
+     * 创建请求命令
+     * @param code
+     * @param customHeader
+     * @return
+     */
     public static RemotingCommand createRequestCommand(int code, CommandCustomHeader customHeader) {
         RemotingCommand cmd = new RemotingCommand();
         cmd.setCode(code);
@@ -93,6 +101,10 @@ public class RemotingCommand {
         return cmd;
     }
 
+    /**
+     * 设置命令版本
+     * @param cmd
+     */
     private static void setCmdVersion(RemotingCommand cmd) {
         if (configVersion >= 0) {
             cmd.setVersion(configVersion);
@@ -144,6 +156,7 @@ public class RemotingCommand {
     public static RemotingCommand decode(final ByteBuffer byteBuffer) {
         int length = byteBuffer.limit();
         int oriHeaderLen = byteBuffer.getInt();
+        // 消息头长度
         int headerLength = getHeaderLength(oriHeaderLen);
 
         byte[] headerData = new byte[headerLength];
@@ -231,6 +244,12 @@ public class RemotingCommand {
         this.customHeader = customHeader;
     }
 
+    /**
+     * 解码自定义命令头信息
+     * @param classHeader
+     * @return
+     * @throws RemotingCommandException
+     */
     public CommandCustomHeader decodeCommandCustomHeader(
         Class<? extends CommandCustomHeader> classHeader) throws RemotingCommandException {
         CommandCustomHeader objectHeader;
@@ -325,31 +344,35 @@ public class RemotingCommand {
         return name;
     }
 
+    /**
+     * 编码
+     * @return
+     */
     public ByteBuffer encode() {
-        // 1> header length size
+        // 1> header length size  // 消息头长度
         int length = 4;
 
-        // 2> header data length
+        // 2> header data length  // 头数据长度
         byte[] headerData = this.headerEncode();
         length += headerData.length;
 
-        // 3> body data length
+        // 3> body data length 消息体长度
         if (this.body != null) {
             length += body.length;
         }
-
+        // 分配ByteBuffer, 这边加了4 这是因为在消息总长度的计算中没有将存储头部长度的4个字节计算在内
         ByteBuffer result = ByteBuffer.allocate(4 + length);
 
-        // length
+        // length 将消息总长度放到 ByteBuffer
         result.putInt(length);
 
-        // header length
+        // header length 设置头长度
         result.put(markProtocolType(headerData.length, serializeTypeCurrentRPC));
 
-        // header data
+        // header data 头数据
         result.put(headerData);
 
-        // body data;
+        // body data; 消息体数据
         if (this.body != null) {
             result.put(this.body);
         }

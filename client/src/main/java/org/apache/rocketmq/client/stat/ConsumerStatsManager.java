@@ -61,22 +61,47 @@ public class ConsumerStatsManager {
     public void shutdown() {
     }
 
+    /**
+     * 增加拉取响应时间
+     * @param group
+     * @param topic
+     * @param rt
+     */
     public void incPullRT(final String group, final String topic, final long rt) {
         this.topicAndGroupPullRT.addValue(topic + "@" + group, (int) rt, 1);
     }
 
+    /**
+     * 增加拉取TPS
+     * @param group
+     * @param topic
+     * @param msgs
+     */
     public void incPullTPS(final String group, final String topic, final long msgs) {
         this.topicAndGroupPullTPS.addValue(topic + "@" + group, (int) msgs, 1);
     }
 
+    /**
+     * 增加消费响应时间
+     * @param group
+     * @param topic
+     * @param rt
+     */
     public void incConsumeRT(final String group, final String topic, final long rt) {
         this.topicAndGroupConsumeRT.addValue(topic + "@" + group, (int) rt, 1);
     }
 
+    /**
+     * 增加消费完成的TPS
+     * @param group
+     * @param topic
+     * @param msgs
+     */
     public void incConsumeOKTPS(final String group, final String topic, final long msgs) {
         this.topicAndGroupConsumeOKTPS.addValue(topic + "@" + group, (int) msgs, 1);
     }
 
+    // 增加消费失败的TPS
     public void incConsumeFailedTPS(final String group, final String topic, final long msgs) {
         this.topicAndGroupConsumeFailedTPS.addValue(topic + "@" + group, (int) msgs, 1);
     }

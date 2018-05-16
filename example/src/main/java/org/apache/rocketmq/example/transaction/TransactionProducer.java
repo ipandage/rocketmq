@@ -26,8 +26,11 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 
 public class TransactionProducer {
     public static void main(String[] args) throws MQClientException, InterruptedException {
+        // 事物检查监听器
         TransactionCheckListener transactionCheckListener = new TransactionCheckListenerImpl();
+        // 事物消息生产者
         TransactionMQProducer producer = new TransactionMQProducer("please_rename_unique_group_name");
+        producer.setNamesrvAddr("127.0.0.1:9876");
         producer.setCheckThreadPoolMinSize(2);
         producer.setCheckThreadPoolMaxSize(2);
         producer.setCheckRequestHoldMax(2000);
@@ -38,9 +41,11 @@ public class TransactionProducer {
         TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
         for (int i = 0; i < 100; i++) {
             try {
+                // 构造msg
                 Message msg =
                     new Message("TopicTest", tags[i % tags.length], "KEY" + i,
                         ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                // 发送消息
                 SendResult sendResult = producer.sendMessageInTransaction(msg, tranExecuter, null);
                 System.out.printf("%s%n", sendResult);
 

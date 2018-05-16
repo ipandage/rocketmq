@@ -72,13 +72,16 @@ public class NamesrvController {
 
         this.kvConfigManager.load();
 
+        // 初始化通讯层
         this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.brokerHousekeepingService);
 
+        // 初始化线程池
         this.remotingExecutor =
             Executors.newFixedThreadPool(nettyServerConfig.getServerWorkerThreads(), new ThreadFactoryImpl("RemotingExecutorThread_"));
 
         this.registerProcessor();
 
+        // 增加定时任务
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
@@ -98,6 +101,9 @@ public class NamesrvController {
         return true;
     }
 
+    /**
+     * 注册处理器
+     */
     private void registerProcessor() {
         if (namesrvConfig.isClusterTest()) {
 

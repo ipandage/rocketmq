@@ -24,11 +24,11 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 
 /**
- * Offset store interface
+ * Offset store interface 偏移量存储接口
  */
 public interface OffsetStore {
     /**
-     * Load
+     * Load 加载消费进度
      */
     void load() throws MQClientException;
 

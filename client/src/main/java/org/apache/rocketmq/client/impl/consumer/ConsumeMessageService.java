@@ -36,6 +36,13 @@ public interface ConsumeMessageService {
 
     ConsumeMessageDirectlyResult consumeMessageDirectly(final MessageExt msg, final String brokerName);
 
+    /**
+     * 提交消费请求
+     * @param msgs
+     * @param processQueue
+     * @param messageQueue
+     * @param dispathToConsume
+     */
     void submitConsumeRequest(
         final List<MessageExt> msgs,
         final ProcessQueue processQueue,

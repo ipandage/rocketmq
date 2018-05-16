@@ -60,7 +60,7 @@ public class ScheduleMessageService extends ConfigManager {
     private final Timer timer = new Timer("ScheduleMessageTimerThread", true);
 
     private final DefaultMessageStore defaultMessageStore;
-
+    // 最大延时级别
     private int maxDelayLevel;
 
     public ScheduleMessageService(final DefaultMessageStore defaultMessageStore) {
@@ -71,6 +71,11 @@ public class ScheduleMessageService extends ConfigManager {
         return queueId + 1;
     }
 
+    /**
+     * 延时级别转队列Id
+     * @param delayLevel
+     * @return
+     */
     public static int delayLevel2QueueId(final int delayLevel) {
         return delayLevel - 1;
     }

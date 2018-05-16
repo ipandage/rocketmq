@@ -57,7 +57,7 @@ public class MixAll {
     public static final String WS_DOMAIN_SUBGROUP = System.getProperty("rocketmq.namesrv.domain.subgroup", "nsaddr");
     //http://jmenv.tbsite.net:8080/rocketmq/nsaddr
     //public static final String WS_ADDR = "http://" + WS_DOMAIN_NAME + ":8080/rocketmq/" + WS_DOMAIN_SUBGROUP;
-    public static final String DEFAULT_TOPIC = "TBW102";
+    public static final String DEFAULT_TOPIC = "TBW102"; // 默认主题
     public static final String BENCHMARK_TOPIC = "BenchmarkTest";
     public static final String DEFAULT_PRODUCER_GROUP = "DEFAULT_PRODUCER";
     public static final String DEFAULT_CONSUMER_GROUP = "DEFAULT_CONSUMER";
@@ -111,6 +111,11 @@ public class MixAll {
         return topic.startsWith(SYSTEM_TOPIC_PREFIX);
     }
 
+    /**
+     * 获得死信队列
+     * @param consumerGroup
+     * @return
+     */
     public static String getDLQTopic(final String consumerGroup) {
         return DLQ_GROUP_TOPIC_PREFIX + consumerGroup;
     }
@@ -138,6 +143,12 @@ public class MixAll {
         return 0;
     }
 
+    /**
+     * 字符串转文件
+     * @param str
+     * @param fileName
+     * @throws IOException
+     */
     public static void string2File(final String str, final String fileName) throws IOException {
 
         String tmpFile = fileName + ".tmp";
@@ -176,6 +187,12 @@ public class MixAll {
         }
     }
 
+    /**
+     * 文件转字符串
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
     public static String file2String(final String fileName) throws IOException {
         File file = new File(fileName);
         return file2String(file);
@@ -227,10 +244,21 @@ public class MixAll {
         return null;
     }
 
+    /**
+     * 打印对象属性
+      * @param logger
+     * @param object
+     */
     public static void printObjectProperties(final Logger logger, final Object object) {
         printObjectProperties(logger, object, false);
     }
 
+    /**
+     * 打印对象属性
+     * @param logger
+     * @param object
+     * @param onlyImportantField
+     */
     public static void printObjectProperties(final Logger logger, final Object object,
         final boolean onlyImportantField) {
         Field[] fields = object.getClass().getDeclaredFields();
@@ -314,6 +342,11 @@ public class MixAll {
         return properties;
     }
 
+    /**
+     * 属性转对象
+     * @param p
+     * @param object
+     */
     public static void properties2Object(final Properties p, final Object object) {
         Method[] methods = object.getClass().getMethods();
         for (Method method : methods) {

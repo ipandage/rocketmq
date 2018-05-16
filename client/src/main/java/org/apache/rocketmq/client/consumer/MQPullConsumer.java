@@ -82,6 +82,11 @@ public interface MQPullConsumer extends MQConsumer {
 
     /**
      * Pulling the messages,if no message arrival,blocking some time
+     * 拉取消息 若果没有消息到达，阻塞
+     * @param mq 从哪个队列拉取
+     * @param subExpression SubscriptionData 中的subString
+     * @param offset 消息拉取的偏移量
+     * @param maxNums 最大拉取的消息数目
      *
      * @return The resulting {@code PullRequest}
      */

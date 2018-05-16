@@ -53,6 +53,10 @@ public class PullMessageService extends ServiceThread {
         }, timeDelay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * 立即执行拉取请求
+     * @param pullRequest
+     */
     public void executePullRequestImmediately(final PullRequest pullRequest) {
         try {
             this.pullRequestQueue.put(pullRequest);
@@ -85,8 +89,10 @@ public class PullMessageService extends ServiceThread {
 
         while (!this.isStopped()) {
             try {
+                // 阻塞获取 pullRequestQueue pull 请求
                 PullRequest pullRequest = this.pullRequestQueue.take();
                 if (pullRequest != null) {
+                    // 拉取消息
                     this.pullMessage(pullRequest);
                 }
             } catch (InterruptedException e) {

@@ -32,8 +32,8 @@ public class IndexFile {
     private static int hashSlotSize = 4;
     private static int indexSize = 20;
     private static int invalidIndex = 0;
-    private final int hashSlotNum;
-    private final int indexNum;
+    private final int hashSlotNum; // hash槽数量
+    private final int indexNum; // 索引数量
     private final MappedFile mappedFile;
     private final FileChannel fileChannel;
     private final MappedByteBuffer mappedByteBuffer;

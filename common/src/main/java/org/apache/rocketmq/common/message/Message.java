@@ -23,10 +23,12 @@ import java.util.Map;
 
 public class Message implements Serializable {
     private static final long serialVersionUID = 8445773977080406428L;
-
+    // 主题
     private String topic;
     private int flag;
+    // 属性
     private Map<String, String> properties;
+    // 内容体
     private byte[] body;
 
     public Message() {
@@ -134,6 +136,10 @@ public class Message implements Serializable {
         this.setKeys(sb.toString().trim());
     }
 
+    /**
+     * 获得延迟时间级别
+     * @return
+     */
     public int getDelayTimeLevel() {
         String t = this.getProperty(MessageConst.PROPERTY_DELAY_TIME_LEVEL);
         if (t != null) {
@@ -147,6 +153,10 @@ public class Message implements Serializable {
         this.putProperty(MessageConst.PROPERTY_DELAY_TIME_LEVEL, String.valueOf(level));
     }
 
+    /**
+     * 是否等待存储消息ok
+     * @return
+     */
     public boolean isWaitStoreMsgOK() {
         String result = this.getProperty(MessageConst.PROPERTY_WAIT_STORE_MSG_OK);
         if (null == result)

@@ -32,7 +32,7 @@ public class FAQUrl {
 
     public static final String SUBSCRIPTION_GROUP_NOT_EXIST =
         "http://rocketmq.apache.org/docs/faq/";
-
+    // 客户端服务没准备好
     public static final String CLIENT_SERVICE_NOT_OK =
         "http://rocketmq.apache.org/docs/faq/";
 
@@ -61,6 +61,11 @@ public class FAQUrl {
     private static final String TIP_STRING_BEGIN = "\nSee ";
     private static final String TIP_STRING_END = " for further details.";
 
+    /**
+     * 建议去做
+     * @param url
+     * @return
+     */
     public static String suggestTodo(final String url) {
         StringBuilder sb = new StringBuilder();
         sb.append(TIP_STRING_BEGIN);

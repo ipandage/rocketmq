@@ -21,11 +21,11 @@ import org.apache.rocketmq.common.annotation.ImportantField;
 import org.apache.rocketmq.store.ConsumeQueue;
 
 public class MessageStoreConfig {
-    //The root directory in which the log data is kept
+    //The root directory in which the log data is kept 根目录日志存放位置
     @ImportantField
     private String storePathRootDir = System.getProperty("user.home") + File.separator + "store";
 
-    //The directory in which the commitlog is kept
+    //The directory in which the commitlog is kept 提交日志目录
     @ImportantField
     private String storePathCommitLog = System.getProperty("user.home") + File.separator + "store"
         + File.separator + "commitlog";
@@ -120,11 +120,12 @@ public class MessageStoreConfig {
     private int haTransferBatchSize = 1024 * 32;
     @ImportantField
     private String haMasterAddress = null;
-    private int haSlaveFallbehindMax = 1024 * 1024 * 256;
-    @ImportantField
+    private int haSlaveFallbehindMax = 1024 * 1024 * 256; // todo gxg
+    @ImportantField // borker 角色 默认异步主节点
     private BrokerRole brokerRole = BrokerRole.ASYNC_MASTER;
-    @ImportantField
+    @ImportantField // 磁盘刷新类型 默认异步
     private FlushDiskType flushDiskType = FlushDiskType.ASYNC_FLUSH;
+    // 同步刷新时间
     private int syncFlushTimeout = 1000 * 5;
     private String messageDelayLevel = "1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h";
     private long flushDelayOffsetInterval = 1000 * 10;
@@ -139,7 +140,7 @@ public class MessageStoreConfig {
     private int defaultQueryMaxNum = 32;
 
     @ImportantField
-    private boolean transientStorePoolEnable = false;
+    private boolean transientStorePoolEnable = false; // todo gxg
     private int transientStorePoolSize = 5;
     private boolean fastFailIfNoBufferInStorePool = false;
 
@@ -606,6 +607,7 @@ public class MessageStoreConfig {
     /**
      * Enable transient commitLog store poll only if transientStorePoolEnable is true and the FlushDiskType is
      * ASYNC_FLUSH
+     * 是否瞬态存储池开启
      *
      * @return <tt>true</tt> or <tt>false</tt>
      */

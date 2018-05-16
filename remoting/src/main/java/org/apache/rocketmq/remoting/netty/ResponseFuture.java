@@ -25,15 +25,18 @@ import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 
 public class ResponseFuture {
     private final int opaque;
+    // 超时时间
     private final long timeoutMillis;
+    // 回调
     private final InvokeCallback invokeCallback;
     private final long beginTimestamp = System.currentTimeMillis();
     private final CountDownLatch countDownLatch = new CountDownLatch(1);
 
     private final SemaphoreReleaseOnlyOnce once;
-
+    // 执行回调仅一次
     private final AtomicBoolean executeCallbackOnlyOnce = new AtomicBoolean(false);
     private volatile RemotingCommand responseCommand;
+    // 发送请求OK
     private volatile boolean sendRequestOK = true;
     private volatile Throwable cause;
 
@@ -64,6 +67,12 @@ public class ResponseFuture {
         return diff > this.timeoutMillis;
     }
 
+    /**
+     * 等待响应
+     * @param timeoutMillis
+     * @return
+     * @throws InterruptedException
+     */
     public RemotingCommand waitResponse(final long timeoutMillis) throws InterruptedException {
         this.countDownLatch.await(timeoutMillis, TimeUnit.MILLISECONDS);
         return this.responseCommand;

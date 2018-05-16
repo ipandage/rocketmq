@@ -33,7 +33,7 @@ public class TopAddressing {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.COMMON_LOGGER_NAME);
 
     private String nsAddr;
-    private String wsAddr;
+    private String wsAddr; // todo gxg
     private String unitName;
 
     public TopAddressing(final String wsAddr) {
@@ -60,10 +60,20 @@ public class TopAddressing {
         return newString;
     }
 
+    /**
+     * 获取name server地址
+     * @return
+     */
     public final String fetchNSAddr() {
         return fetchNSAddr(true, 3000);
     }
 
+    /**
+     * 获取name server地址
+     * @param verbose
+     * @param timeoutMills
+     * @return
+     */
     public final String fetchNSAddr(boolean verbose, long timeoutMills) {
         String url = this.wsAddr;
         try {

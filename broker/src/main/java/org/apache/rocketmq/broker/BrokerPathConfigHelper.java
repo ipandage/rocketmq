@@ -31,10 +31,20 @@ public class BrokerPathConfigHelper {
         brokerConfigPath = path;
     }
 
+    /**
+     * 获得配置路径
+     * @param rootDir
+     * @return
+     */
     public static String getTopicConfigPath(final String rootDir) {
         return rootDir + File.separator + "config" + File.separator + "topics.json";
     }
 
+    /**
+     * 获得消费者偏移量路径
+     * @param rootDir
+     * @return
+     */
     public static String getConsumerOffsetPath(final String rootDir) {
         return rootDir + File.separator + "config" + File.separator + "consumerOffset.json";
     }
@@ -43,6 +53,11 @@ public class BrokerPathConfigHelper {
         return rootDir + File.separator + "config" + File.separator + "subscriptionGroup.json";
     }
 
+    /**
+     * 获得消费者过滤器路径
+     * @param rootDir
+     * @return
+     */
     public static String getConsumerFilterPath(final String rootDir) {
         return rootDir + File.separator + "config" + File.separator + "consumerFilter.json";
     }

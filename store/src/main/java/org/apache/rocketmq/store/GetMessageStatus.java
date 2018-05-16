@@ -20,9 +20,9 @@ public enum GetMessageStatus {
 
     FOUND,
 
-    NO_MATCHED_MESSAGE,
+    NO_MATCHED_MESSAGE, // 没有匹配的消息
 
-    MESSAGE_WAS_REMOVING,
+    MESSAGE_WAS_REMOVING, // 消息正在被删除
 
     OFFSET_FOUND_NULL,
 

@@ -90,6 +90,7 @@ public class RemoteBrokerOffsetStore implements OffsetStore {
                     try {
                         long brokerOffset = this.fetchConsumeOffsetFromBroker(mq);
                         AtomicLong offset = new AtomicLong(brokerOffset);
+                        System.out.println("+++ " + mq.getBrokerName() + " " + mq.getTopic() + " " + mq.getQueueId() + " "+ offset.get());
                         this.updateOffset(mq, offset.get(), false);
                         return brokerOffset;
                     }

@@ -54,7 +54,7 @@ public class NamesrvStartup {
             Options options = ServerUtil.buildCommandlineOptions(new Options());
             commandLine = ServerUtil.parseCmdLine("mqnamesrv", args, buildCommandlineOptions(options), new PosixParser());
             if (null == commandLine) {
-                System.exit(-1);
+                System.exit(-1); // 系统停止运行
                 return null;
             }
 
@@ -104,7 +104,7 @@ public class NamesrvStartup {
 
             // remember all configs to prevent discard
             controller.getConfiguration().registerConfig(properties);
-
+            // NamesrvController 初始化
             boolean initResult = controller.initialize();
             if (!initResult) {
                 controller.shutdown();

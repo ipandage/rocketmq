@@ -39,12 +39,15 @@ import org.slf4j.Logger;
  * Local storage implementation
  */
 public class LocalFileOffsetStore implements OffsetStore {
+    // 存储根目录， 默认为用户主目录
     public final static String LOCAL_OFFSET_STORE_DIR = System.getProperty(
         "rocketmq.client.localOffsetStoreDir",
         System.getProperty("user.home") + File.separator + ".rocketmq_offsets");
     private final static Logger log = ClientLogger.getLog();
     private final MQClientInstance mQClientFactory;
+    // 消费组名称
     private final String groupName;
+    // 具体消费进度保存的全路径文件名
     private final String storePath;
     private ConcurrentMap<MessageQueue, AtomicLong> offsetTable =
         new ConcurrentHashMap<MessageQueue, AtomicLong>();

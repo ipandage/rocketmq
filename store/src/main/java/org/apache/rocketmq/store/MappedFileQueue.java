@@ -35,10 +35,13 @@ public class MappedFileQueue {
 
     private static final int DELETE_FILES_BATCH_MAX = 10;
 
+    // 存储路径
     private final String storePath;
 
+    // 映射文件大小
     private final int mappedFileSize;
 
+    // 映射文件列表
     private final CopyOnWriteArrayList<MappedFile> mappedFiles = new CopyOnWriteArrayList<MappedFile>();
 
     private final AllocateMappedFileService allocateMappedFileService;
@@ -191,6 +194,12 @@ public class MappedFileQueue {
         return 0;
     }
 
+    /**
+     * 获得最后的映射文件
+     * @param startOffset
+     * @param needCreate
+     * @return
+     */
     public MappedFile getLastMappedFile(final long startOffset, boolean needCreate) {
         long createOffset = -1;
         MappedFile mappedFileLast = getLastMappedFile();
@@ -237,6 +246,10 @@ public class MappedFileQueue {
         return getLastMappedFile(startOffset, true);
     }
 
+    /**
+     * 获得最后的映射文件
+     * @return
+     */
     public MappedFile getLastMappedFile() {
         MappedFile mappedFileLast = null;
 

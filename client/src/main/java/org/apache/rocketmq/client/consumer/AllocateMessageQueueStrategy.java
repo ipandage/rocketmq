@@ -26,6 +26,7 @@ public interface AllocateMessageQueueStrategy {
 
     /**
      * Allocating by consumer id
+     * 按消费者Id分配
      *
      * @param consumerGroup current consumer group
      * @param currentCID current consumer id

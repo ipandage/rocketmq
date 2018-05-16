@@ -233,6 +233,11 @@ public class PullAPIWrapper {
         );
     }
 
+    /**
+     * 计算从那个节点拉取
+     * @param mq
+     * @return
+     */
     public long recalculatePullFromWhichNode(final MessageQueue mq) {
         if (this.isConnectBrokerByUser()) {
             return this.defaultBrokerId;
@@ -281,6 +286,10 @@ public class PullAPIWrapper {
         return value;
     }
 
+    /**
+     * 注册过滤消息钩子
+     * @param filterMessageHookList
+     */
     public void registerFilterMessageHook(ArrayList<FilterMessageHook> filterMessageHookList) {
         this.filterMessageHookList = filterMessageHookList;
     }

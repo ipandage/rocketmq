@@ -90,6 +90,10 @@ public class RemotingUtil {
         return isLinuxPlatform;
     }
 
+    /**
+     * 获得本地地址
+     * @return
+     */
     public static String getLocalAddress() {
         try {
             // Traversal Network interface to get the first non-loopback and non-private address
@@ -187,6 +191,10 @@ public class RemotingUtil {
         return null;
     }
 
+    /**
+     * 关闭管道
+     * @param channel
+     */
     public static void closeChannel(Channel channel) {
         final String addrRemote = RemotingHelper.parseChannelRemoteAddr(channel);
         channel.close().addListener(new ChannelFutureListener() {

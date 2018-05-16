@@ -24,7 +24,7 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.slf4j.Logger;
 
 /**
- * Average Hashing queue algorithm
+ * Average Hashing queue algorithm 平均散列队列算法
  */
 public class AllocateMessageQueueAveragely implements AllocateMessageQueueStrategy {
     private final Logger log = ClientLogger.getLog();

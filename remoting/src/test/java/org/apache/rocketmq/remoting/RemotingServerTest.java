@@ -47,7 +47,9 @@ public class RemotingServerTest {
 
     public static RemotingServer createRemotingServer() throws InterruptedException {
         NettyServerConfig config = new NettyServerConfig();
+        // 初始化 RemotingServer，
         RemotingServer remotingServer = new NettyRemotingServer(config);
+        // 注册一个处理器，根据requestCode获取处理器，处理请求
         remotingServer.registerProcessor(0, new NettyRequestProcessor() {
             @Override
             public RemotingCommand processRequest(ChannelHandlerContext ctx, RemotingCommand request) {
@@ -60,7 +62,7 @@ public class RemotingServerTest {
                 return false;
             }
         }, Executors.newCachedThreadPool());
-
+        // 启动remotingServer
         remotingServer.start();
 
         return remotingServer;
@@ -90,11 +92,14 @@ public class RemotingServerTest {
 
     @Test
     public void testInvokeSync() throws InterruptedException, RemotingConnectException,
+        // 消息头
         RemotingSendRequestException, RemotingTimeoutException {
         RequestHeader requestHeader = new RequestHeader();
         requestHeader.setCount(1);
         requestHeader.setMessageTitle("Welcome");
+        // 构建请求
         RemotingCommand request = RemotingCommand.createRequestCommand(0, requestHeader);
+        // 同步发送请求
         RemotingCommand response = remotingClient.invokeSync("localhost:8888", request, 1000 * 3);
         assertTrue(response != null);
         assertThat(response.getLanguage()).isEqualTo(LanguageCode.JAVA);

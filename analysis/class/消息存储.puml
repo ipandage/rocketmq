@@ -1,0 +1,41 @@
+@startuml
+
+class DefaultMessageStore {
+ CommitLog
+ IndexService
+ HAService
+ ReputMessageService
+ CleanCommitLogService
+ FlushConsumeQueueService
+}
+
+class CommitLog {
+ DefaultMessageStore
+ mappedFileQueue
+}
+
+class MappedFileQueue {
+ storePath
+ CopyOnWriteArrayList<MappedFile> mappedFiles
+}
+
+class MappedFile {
+}
+
+class IndexService {
+ ArrayList<IndexFile> indexFileList
+}
+
+class IndexFile {
+ MappedFile
+}
+
+DefaultMessageStore  *--  IndexService
+IndexService "1" *--  "*" IndexFile
+IndexFile  *--  MappedFile
+
+DefaultMessageStore  *--  CommitLog
+CommitLog  *--  MappedFileQueue
+MappedFileQueue "1" *--  "*" MappedFile
+
+@enduml

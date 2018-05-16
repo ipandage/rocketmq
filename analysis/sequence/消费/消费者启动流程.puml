@@ -1,0 +1,11 @@
+@startuml
+hide footbox
+title 消费者启动流程
+autonumber
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+DefaultMQPushConsumer -> DefaultMQPushConsumerImpl: start()
+DefaultMQPushConsumerImpl -> MQClientManager: getAndCreateMQClientInstance()
+
+@enduml

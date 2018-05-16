@@ -1,0 +1,18 @@
+@startuml
+hide footbox
+title 存储消息主流程
+autonumber
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+SendMessageProcessor -> DefaultMessageStore: putMessage()
+DefaultMessageStore -> CommitLog: putMessage()
+CommitLog -> MappedFileQueue: getLastMappedFile()
+CommitLog <-- MappedFileQueue:获得一个最近使用的MappedFile
+
+CommitLog -> MappedFile: appendMessage()
+CommitLog <-- MappedFile:
+DefaultMessageStore <-- CommitLog:
+SendMessageProcessor <-- DefaultMessageStore:
+
+@enduml

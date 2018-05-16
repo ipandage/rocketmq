@@ -44,24 +44,29 @@ import sun.nio.ch.DirectBuffer;
 public class MappedFile extends ReferenceResource {
     public static final int OS_PAGE_SIZE = 1024 * 4;
     protected static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
-
+    // 总映射虚拟内存
     private static final AtomicLong TOTAL_MAPPED_VIRTUAL_MEMORY = new AtomicLong(0);
-
+    // 总映射文件个数
     private static final AtomicInteger TOTAL_MAPPED_FILES = new AtomicInteger(0);
+    // 写位置
     protected final AtomicInteger wrotePosition = new AtomicInteger(0);
     //ADD BY ChenYang
     protected final AtomicInteger committedPosition = new AtomicInteger(0);
     private final AtomicInteger flushedPosition = new AtomicInteger(0);
+    // 文件大小
     protected int fileSize;
+    // 文件管道
     protected FileChannel fileChannel;
     /**
      * Message will put to here first, and then reput to FileChannel if writeBuffer is not null.
+     * 写缓冲
      */
     protected ByteBuffer writeBuffer = null;
     protected TransientStorePool transientStorePool = null;
     private String fileName;
     private long fileFromOffset;
     private File file;
+    // 映射字节缓冲
     private MappedByteBuffer mappedByteBuffer;
     private volatile long storeTimestamp = 0;
     private boolean firstCreateInQueue = false;
@@ -78,6 +83,10 @@ public class MappedFile extends ReferenceResource {
         init(fileName, fileSize, transientStorePool);
     }
 
+    /**
+     * 确保目录存在
+     * @param dirName
+     */
     public static void ensureDirOK(final String dirName) {
         if (dirName != null) {
             File f = new File(dirName);
@@ -190,6 +199,12 @@ public class MappedFile extends ReferenceResource {
         return fileChannel;
     }
 
+    /**
+     * 追加消息
+     * @param msg
+     * @param cb
+     * @return
+     */
     public AppendMessageResult appendMessage(final MessageExtBrokerInner msg, final AppendMessageCallback cb) {
         return appendMessagesInner(msg, cb);
     }
@@ -198,8 +213,14 @@ public class MappedFile extends ReferenceResource {
         return appendMessagesInner(messageExtBatch, cb);
     }
 
+    /**
+     * 内部追加消息
+     * @param messageExt
+     * @param cb
+     * @return
+     */
     public AppendMessageResult appendMessagesInner(final MessageExt messageExt, final AppendMessageCallback cb) {
-        assert messageExt != null;
+        assert messageExt != null; // todo assert
         assert cb != null;
 
         int currentPos = this.wrotePosition.get();
@@ -271,6 +292,7 @@ public class MappedFile extends ReferenceResource {
      * @return The current flushed position
      */
     public int flush(final int flushLeastPages) {
+        // 判断是否可以刷盘
         if (this.isAbleToFlush(flushLeastPages)) {
             if (this.hold()) {
                 int value = getReadPosition();
@@ -280,6 +302,7 @@ public class MappedFile extends ReferenceResource {
                     if (writeBuffer != null || this.fileChannel.position() != 0) {
                         this.fileChannel.force(false);
                     } else {
+                        // 刷盘，内存到硬盘
                         this.mappedByteBuffer.force();
                     }
                 } catch (Throwable e) {
@@ -338,7 +361,9 @@ public class MappedFile extends ReferenceResource {
     }
 
     private boolean isAbleToFlush(final int flushLeastPages) {
+        // 已经刷到的位置
         int flush = this.flushedPosition.get();
+        // 写到内存的位置
         int write = getReadPosition();
 
         if (this.isFull()) {

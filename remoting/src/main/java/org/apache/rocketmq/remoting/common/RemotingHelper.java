@@ -150,6 +150,11 @@ public class RemotingHelper {
         }
     }
 
+    /**
+     * 解析管道远程地址
+     * @param channel
+     * @return
+     */
     public static String parseChannelRemoteAddr(final Channel channel) {
         if (null == channel) {
             return "";
@@ -169,6 +174,11 @@ public class RemotingHelper {
         return "";
     }
 
+    /**
+     * 解析套接字地址
+     * @param socketAddress
+     * @return
+     */
     public static String parseSocketAddressAddr(SocketAddress socketAddress) {
         if (socketAddress != null) {
             final String addr = socketAddress.toString();

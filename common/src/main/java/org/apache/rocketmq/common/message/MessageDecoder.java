@@ -41,6 +41,7 @@ public class MessageDecoder {
     public final static int MESSAGE_MAGIC_CODE = 0xAABBCCDD ^ 1880681586 + 8;
     public static final char NAME_VALUE_SEPARATOR = 1;
     public static final char PROPERTY_SEPARATOR = 2;
+    // 内容体大小
     public static final int BODY_SIZE_POSITION = 4 // 1 TOTALSIZE
         + 4 // 2 MAGICCODE
         + 4 // 3 BODYCRC
@@ -56,6 +57,13 @@ public class MessageDecoder {
         + 4 // 13 RECONSUMETIMES
         + 8; // 14 Prepared Transaction Offset
 
+    /**
+     * 创建消息Id
+     * @param input
+     * @param addr
+     * @param offset
+     * @return
+     */
     public static String createMessageId(final ByteBuffer input, final ByteBuffer addr, final long offset) {
         input.flip();
         input.limit(MessageDecoder.MSG_ID_LENGTH);
@@ -380,6 +388,11 @@ public class MessageDecoder {
         return msgExts;
     }
 
+    /**
+     * 消息属性转字符串
+     * @param properties
+     * @return
+     */
     public static String messageProperties2String(Map<String, String> properties) {
         StringBuilder sb = new StringBuilder();
         if (properties != null) {

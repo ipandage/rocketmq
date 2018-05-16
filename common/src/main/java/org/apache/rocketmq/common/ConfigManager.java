@@ -29,12 +29,16 @@ public abstract class ConfigManager {
     public boolean load() {
         String fileName = null;
         try {
+            // 读取文件路径
             fileName = this.configFilePath();
+            // 读取文件内容
             String jsonString = MixAll.file2String(fileName);
 
             if (null == jsonString || jsonString.length() == 0) {
+                // 读取备份文件
                 return this.loadBak();
             } else {
+                // 将文件读取到 topicConfigManager.topicConfigTable中
                 this.decode(jsonString);
                 log.info("load {} OK", fileName);
                 return true;
@@ -45,8 +49,16 @@ public abstract class ConfigManager {
         }
     }
 
+    /**
+     * 配置文件路径
+     * @return
+     */
     public abstract String configFilePath();
 
+    /**
+     * 加载.bak文件
+     * @return
+     */
     private boolean loadBak() {
         String fileName = null;
         try {
@@ -65,6 +77,10 @@ public abstract class ConfigManager {
         return true;
     }
 
+    /**
+     * 解码
+     * @param jsonString
+     */
     public abstract void decode(final String jsonString);
 
     public synchronized void persist() {

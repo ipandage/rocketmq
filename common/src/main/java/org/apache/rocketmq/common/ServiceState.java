@@ -22,7 +22,7 @@ public enum ServiceState {
      */
     CREATE_JUST,
     /**
-     * Service Running
+     * Service Running 服务运行中
      */
     RUNNING,
     /**

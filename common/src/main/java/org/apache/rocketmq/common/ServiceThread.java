@@ -29,6 +29,7 @@ public abstract class ServiceThread implements Runnable {
 
     protected final Thread thread;
     protected final CountDownLatch2 waitPoint = new CountDownLatch2(1);
+    // 是否已经通知
     protected volatile AtomicBoolean hasNotified = new AtomicBoolean(false);
     protected volatile boolean stopped = false;
 
@@ -97,12 +98,19 @@ public abstract class ServiceThread implements Runnable {
         log.info("makestop thread " + this.getServiceName());
     }
 
+    /**
+     * 唤醒
+     */
     public void wakeup() {
         if (hasNotified.compareAndSet(false, true)) {
             waitPoint.countDown(); // notify
         }
     }
 
+    /**
+     * 等待执行间隔
+     * @param interval
+     */
     protected void waitForRunning(long interval) {
         if (hasNotified.compareAndSet(true, false)) {
             this.onWaitEnd();

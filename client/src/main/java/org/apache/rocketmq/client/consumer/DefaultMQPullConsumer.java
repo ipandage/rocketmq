@@ -41,7 +41,7 @@ public class DefaultMQPullConsumer extends ClientConfig implements MQPullConsume
 
     /**
      * Do the same thing for the same Group, the application must be set,and
-     * guarantee Globally unique
+     * guarantee Globally unique 消费者组
      */
     private String consumerGroup;
     /**
@@ -59,7 +59,7 @@ public class DefaultMQPullConsumer extends ClientConfig implements MQPullConsume
      */
     private long consumerPullTimeoutMillis = 1000 * 10;
     /**
-     * Consumption pattern,default is clustering
+     * Consumption pattern,default is clustering 消费模式
      */
     private MessageModel messageModel = MessageModel.CLUSTERING;
     /**
@@ -67,11 +67,11 @@ public class DefaultMQPullConsumer extends ClientConfig implements MQPullConsume
      */
     private MessageQueueListener messageQueueListener;
     /**
-     * Offset Storage
+     * Offset Storage 存储偏移量
      */
     private OffsetStore offsetStore;
     /**
-     * Topic set you want to register
+     * Topic set you want to register 注册主题
      */
     private Set<String> registerTopics = new HashSet<String>();
     /**

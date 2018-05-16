@@ -1,0 +1,17 @@
+@startuml
+hide footbox
+title 启动流程
+autonumber
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+NamesrvController -> NamesrvController: initialize()
+NamesrvController -> KVConfigManager: load()
+NamesrvController -> NamesrvController: NettyRemotingServer()
+note right NamesrvController: 初始化通讯层
+NamesrvController -> Executors: newFixedThreadPool()
+note right NamesrvController: 初始化线程池
+NamesrvController -> RouteInfoManager: scanNotActiveBroker()
+NamesrvController -> NamesrvController: start()
+
+@enduml

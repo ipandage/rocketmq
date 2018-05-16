@@ -1,0 +1,18 @@
+@startuml
+hide footbox
+title 消费者拉取消息流程
+autonumber
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+note over PullMessageService:pullRequestQueue队列中take消息
+PullMessageService -> PullMessageService: pullMessage()
+PullMessageService -> DefaultMQPushConsumerImpl: pullMessage()
+DefaultMQPushConsumerImpl -> MQClientAPIImpl: pullMessage()
+MQClientAPIImpl -> MQClientAPIImpl: pullMessageAsync()
+MQClientAPIImpl -> RemotingClient: invokeAsync()
+RemotingClient -> InvokeCallback: operationComplete()
+InvokeCallback -> MQClientAPIImpl: processPullResponse()
+InvokeCallback -> PullCallback: onSuccess()
+
+@enduml

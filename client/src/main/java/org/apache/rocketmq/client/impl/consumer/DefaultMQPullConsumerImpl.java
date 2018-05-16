@@ -206,7 +206,9 @@ public class DefaultMQPullConsumerImpl implements MQConsumerInner {
             CommunicationMode.SYNC,
             null
         );
+        // 从broker拉取消息 对pullresult进行处理, 这一步主要进行两个操作, a.更新消息队列拉取消息Broker编号的映射, b.解析消息，并根据订阅信息消息tagCode匹配合适消息
         this.pullAPIWrapper.processPullResult(mq, pullResult, subscriptionData);
+        // 如果HookList不为空, 执行HookList中的操作
         if (!this.consumeMessageHookList.isEmpty()) {
             ConsumeMessageContext consumeMessageContext = null;
             consumeMessageContext = new ConsumeMessageContext();
@@ -531,11 +533,12 @@ public class DefaultMQPullConsumerImpl implements MQConsumerInner {
         }
     }
 
+    // 启动
     public synchronized void start() throws MQClientException {
         switch (this.serviceState) {
             case CREATE_JUST:
                 this.serviceState = ServiceState.START_FAILED;
-
+                // 校验配置
                 this.checkConfig();
 
                 this.copySubscription();
@@ -554,6 +557,8 @@ public class DefaultMQPullConsumerImpl implements MQConsumerInner {
                 this.pullAPIWrapper = new PullAPIWrapper(
                     mQClientFactory,
                     this.defaultMQPullConsumer.getConsumerGroup(), isUnitMode());
+
+                // 初始化pullAPIWrapper(长连接, 负责从broker处拉取消息, 然后利用ConsumeMessageService回调用户的Listener执行消息消费逻辑)
                 this.pullAPIWrapper.registerFilterMessageHook(filterMessageHookList);
 
                 if (this.defaultMQPullConsumer.getOffsetStore() != null) {
@@ -574,6 +579,7 @@ public class DefaultMQPullConsumerImpl implements MQConsumerInner {
 
                 this.offsetStore.load();
 
+                // 向mqClientFactory注册本消费者
                 boolean registerOK = mQClientFactory.registerConsumer(this.defaultMQPullConsumer.getConsumerGroup(), this);
                 if (!registerOK) {
                     this.serviceState = ServiceState.CREATE_JUST;
@@ -582,9 +588,10 @@ public class DefaultMQPullConsumerImpl implements MQConsumerInner {
                         + "] has been created before, specify another name please." + FAQUrl.suggestTodo(FAQUrl.GROUP_NAME_DUPLICATE_URL),
                         null);
                 }
-
+                // 启动mqClientFactory(启动各种定时任务, 如定时获取nameserver地址, 定时清理下线的borker, 启动各种service, 如拉消息服务, 负载均衡服务)
                 mQClientFactory.start();
                 log.info("the consumer [{}] start OK", this.defaultMQPullConsumer.getConsumerGroup());
+                // 将serviceState修改为ServiceState.RUNNING
                 this.serviceState = ServiceState.RUNNING;
                 break;
             case RUNNING:
@@ -647,6 +654,10 @@ public class DefaultMQPullConsumerImpl implements MQConsumerInner {
         }
     }
 
+    /**
+     * 拷贝订阅关系
+     * @throws MQClientException
+     */
     private void copySubscription() throws MQClientException {
         try {
             Set<String> registerTopics = this.defaultMQPullConsumer.getRegisterTopics();

@@ -198,6 +198,10 @@ public class IndexService {
         return topic + "#" + key;
     }
 
+    /**
+     * 构建索引
+     * @param req
+     */
     public void buildIndex(DispatchRequest req) {
         IndexFile indexFile = retryGetAndCreateIndexFile();
         if (indexFile != null) {
@@ -261,7 +265,7 @@ public class IndexService {
     }
 
     /**
-     * Retries to get or create index file.
+     * Retries to get or create index file. 重试获取或者创建索引文件
      *
      * @return {@link IndexFile} or null on failure.
      */

@@ -24,11 +24,15 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 订阅数据
+ */
 public class SubscriptionData implements Comparable<SubscriptionData> {
     public final static String SUB_ALL = "*";
     private boolean classFilterMode = false;
     private String topic;
     private String subString;
+    // 标签集合
     private Set<String> tagsSet = new HashSet<String>();
     private Set<Integer> codeSet = new HashSet<Integer>();
     private long subVersion = System.currentTimeMillis();

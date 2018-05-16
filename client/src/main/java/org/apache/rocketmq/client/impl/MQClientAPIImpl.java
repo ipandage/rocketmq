@@ -198,6 +198,10 @@ public class MQClientAPIImpl {
         return remotingClient;
     }
 
+    /**
+     * 获取name server地址
+     * @return
+     */
     public String fetchNameServerAddr() {
         try {
             String addrs = this.topAddressing.fetchNSAddr();
@@ -551,6 +555,18 @@ public class MQClientAPIImpl {
         throw new MQBrokerException(response.getCode(), response.getRemark());
     }
 
+    /**
+     *
+      * @param addr
+     * @param requestHeader
+     * @param timeoutMillis
+     * @param communicationMode 默认为 {@link CommunicationMode.ASYNC}
+     * @param pullCallback
+     * @return
+     * @throws RemotingException
+     * @throws MQBrokerException
+     * @throws InterruptedException
+     */
     public PullResult pullMessage(
         final String addr,
         final PullMessageRequestHeader requestHeader,
@@ -577,6 +593,15 @@ public class MQClientAPIImpl {
         return null;
     }
 
+    /**
+     * 异步拉取消息
+     * @param addr
+     * @param request
+     * @param timeoutMillis
+     * @param pullCallback
+     * @throws RemotingException
+     * @throws InterruptedException
+     */
     private void pullMessageAsync(
         final String addr,
         final RemotingCommand request,
@@ -609,6 +634,16 @@ public class MQClientAPIImpl {
         });
     }
 
+    /**
+     * 同步拉取消息
+     * @param addr broker 监听地址 eg:192.168.30.11:10911
+     * @param request
+     * @param timeoutMillis
+     * @return
+     * @throws RemotingException
+     * @throws InterruptedException
+     * @throws MQBrokerException
+     */
     private PullResult pullMessageSync(
         final String addr,
         final RemotingCommand request,
@@ -619,6 +654,13 @@ public class MQClientAPIImpl {
         return this.processPullResponse(response);
     }
 
+    /**
+     * 处理拉响应
+     * @param response
+     * @return
+     * @throws MQBrokerException
+     * @throws RemotingCommandException
+     */
     private PullResult processPullResponse(
         final RemotingCommand response) throws MQBrokerException, RemotingCommandException {
         PullStatus pullStatus = PullStatus.NO_NEW_MSG;
@@ -794,6 +836,16 @@ public class MQClientAPIImpl {
         throw new MQBrokerException(response.getCode(), response.getRemark());
     }
 
+    /**
+     * 查询消费偏移量
+     * @param addr
+     * @param requestHeader
+     * @param timeoutMillis
+     * @return
+     * @throws RemotingException
+     * @throws MQBrokerException
+     * @throws InterruptedException
+     */
     public long queryConsumerOffset(
         final String addr,
         final QueryConsumerOffsetRequestHeader requestHeader,
@@ -1197,6 +1249,18 @@ public class MQClientAPIImpl {
         return getTopicRouteInfoFromNameServer(topic, timeoutMillis, true);
     }
 
+    /**
+     * 获得主题路由信息从名称服务器
+     * @param topic
+     * @param timeoutMillis
+     * @param allowTopicNotExist
+     * @return
+     * @throws MQClientException
+     * @throws InterruptedException
+     * @throws RemotingTimeoutException
+     * @throws RemotingSendRequestException
+     * @throws RemotingConnectException
+     */
     public TopicRouteData getTopicRouteInfoFromNameServer(final String topic, final long timeoutMillis,
         boolean allowTopicNotExist) throws MQClientException, InterruptedException, RemotingTimeoutException, RemotingSendRequestException, RemotingConnectException {
         GetRouteInfoRequestHeader requestHeader = new GetRouteInfoRequestHeader();

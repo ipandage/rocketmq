@@ -25,13 +25,15 @@ import org.apache.rocketmq.remoting.netty.TlsSystemConfig;
  * Client Common configuration
  */
 public class ClientConfig {
+    // vip channel todo gxg
     public static final String SEND_MESSAGE_WITH_VIP_CHANNEL_PROPERTY = "com.rocketmq.sendMessageWithVIPChannel";
+    // name server 地址
     private String namesrvAddr = System.getProperty(MixAll.NAMESRV_ADDR_PROPERTY, System.getenv(MixAll.NAMESRV_ADDR_ENV));
     private String clientIP = RemotingUtil.getLocalAddress();
     private String instanceName = System.getProperty("rocketmq.client.name", "DEFAULT");
     private int clientCallbackExecutorThreads = Runtime.getRuntime().availableProcessors();
     /**
-     * Pulling topic information interval from the named server
+     * Pulling topic information interval from the named server 从name server间隔拉取topic信息
      */
     private int pollNameServerInterval = 1000 * 30;
     /**
@@ -48,6 +50,10 @@ public class ClientConfig {
 
     private boolean useTLS = TlsSystemConfig.tlsEnable;
 
+    /**
+     * 构建MQ clientId
+     * @return
+     */
     public String buildMQClientId() {
         StringBuilder sb = new StringBuilder();
         sb.append(this.getClientIP());
@@ -78,6 +84,9 @@ public class ClientConfig {
         this.instanceName = instanceName;
     }
 
+    /**
+     * 改变实例名称为PID
+     */
     public void changeInstanceNameToPID() {
         if (this.instanceName.equals("DEFAULT")) {
             this.instanceName = String.valueOf(UtilAll.getPid());

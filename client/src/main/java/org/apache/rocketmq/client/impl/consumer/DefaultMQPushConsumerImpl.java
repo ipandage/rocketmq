@@ -104,7 +104,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
     private volatile boolean pause = false;
     private boolean consumeOrderly = false;
     private MessageListener messageListenerInner;
-    private OffsetStore offsetStore;
+    private OffsetStore offsetStore; // 偏移量存储
     private ConsumeMessageService consumeMessageService;
     private long queueFlowControlTimes = 0;
     private long queueMaxSpanFlowControlTimes = 0;
@@ -391,7 +391,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
         boolean commitOffsetEnable = false;
         long commitOffsetValue = 0L;
         if (MessageModel.CLUSTERING == this.defaultMQPushConsumer.getMessageModel()) {
-            commitOffsetValue = this.offsetStore.readOffset(pullRequest.getMessageQueue(), ReadOffsetType.READ_FROM_MEMORY);
+            commitOffsetValue = this.offsetStore.readOffset(pullRequest.getMessageQueue(), ReadOffsetType.READ_FROM_STORE);
             if (commitOffsetValue > 0) {
                 commitOffsetEnable = true;
             }
@@ -635,9 +635,14 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
         this.mQClientFactory.rebalanceImmediately();
     }
 
+    /**
+     * 校验配置
+     * @throws MQClientException
+     */
     private void checkConfig() throws MQClientException {
         Validators.checkGroup(this.defaultMQPushConsumer.getConsumerGroup());
 
+        // consumerGroup 不能为空
         if (null == this.defaultMQPushConsumer.getConsumerGroup()) {
             throw new MQClientException(
                 "consumerGroup is null"
@@ -645,6 +650,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                 null);
         }
 
+        // consumerGroup 不能等于默认消费者组
         if (this.defaultMQPushConsumer.getConsumerGroup().equals(MixAll.DEFAULT_CONSUMER_GROUP)) {
             throw new MQClientException(
                 "consumerGroup can not equal "
@@ -654,6 +660,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                 null);
         }
 
+        // messageModel 不能为空
         if (null == this.defaultMQPushConsumer.getMessageModel()) {
             throw new MQClientException(
                 "messageModel is null"
@@ -661,6 +668,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                 null);
         }
 
+        // consumeFromWhere 不能为空
         if (null == this.defaultMQPushConsumer.getConsumeFromWhere()) {
             throw new MQClientException(
                 "consumeFromWhere is null"
@@ -668,6 +676,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                 null);
         }
 
+        // 判断消费时间戳是否有效
         Date dt = UtilAll.parseDate(this.defaultMQPushConsumer.getConsumeTimestamp(), UtilAll.YYYYMMDDHHMMSS);
         if (null == dt) {
             throw new MQClientException(
@@ -676,7 +685,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                     + " " + FAQUrl.suggestTodo(FAQUrl.CLIENT_PARAMETER_CHECK_URL), null);
         }
 
-        // allocateMessageQueueStrategy
+        // allocateMessageQueueStrategy 分配消息队列策略不能为空
         if (null == this.defaultMQPushConsumer.getAllocateMessageQueueStrategy()) {
             throw new MQClientException(
                 "allocateMessageQueueStrategy is null"
@@ -684,7 +693,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                 null);
         }
 
-        // subscription
+        // subscription 订阅不能为空
         if (null == this.defaultMQPushConsumer.getSubscription()) {
             throw new MQClientException(
                 "subscription is null"
@@ -692,7 +701,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                 null);
         }
 
-        // messageListener
+        // messageListener 消息监听器不能为空
         if (null == this.defaultMQPushConsumer.getMessageListener()) {
             throw new MQClientException(
                 "messageListener is null"
@@ -805,6 +814,10 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
         }
     }
 
+    /**
+     * 拷贝订阅关系
+     * @throws MQClientException
+     */
     private void copySubscription() throws MQClientException {
         try {
             Map<String, String> sub = this.defaultMQPushConsumer.getSubscription();

@@ -30,8 +30,11 @@ import org.apache.rocketmq.common.protocol.ResponseCode;
  * Common Validator
  */
 public class Validators {
+    // 有效匹配串
     public static final String VALID_PATTERN_STR = "^[%|a-zA-Z0-9_-]+$";
+    // 匹配模式
     public static final Pattern PATTERN = Pattern.compile(VALID_PATTERN_STR);
+    // 最大字符长度
     public static final int CHARACTER_MAX_LENGTH = 255;
 
     /**
@@ -47,7 +50,7 @@ public class Validators {
     }
 
     /**
-     * Validate group
+     * Validate group 校验组
      */
     public static void checkGroup(String group) throws MQClientException {
         if (UtilAll.isBlank(group)) {
@@ -64,6 +67,7 @@ public class Validators {
     }
 
     /**
+     * 正则匹配
      * @return <tt>true</tt> if, and only if, the entire origin sequence matches this matcher's pattern
      */
     public static boolean regularExpressionMatcher(String origin, Pattern pattern) {
@@ -75,7 +79,7 @@ public class Validators {
     }
 
     /**
-     * Validate message
+     * Validate message 校验消息
      */
     public static void checkMessage(Message msg, DefaultMQProducer defaultMQProducer)
         throws MQClientException {
@@ -101,7 +105,7 @@ public class Validators {
     }
 
     /**
-     * Validate topic
+     * Validate topic 校验主题
      */
     public static void checkTopic(String topic) throws MQClientException {
         if (UtilAll.isBlank(topic)) {
@@ -118,7 +122,7 @@ public class Validators {
             throw new MQClientException("The specified topic is longer than topic max length 255.", null);
         }
 
-        //whether the same with system reserved keyword
+        //whether the same with system reserved keyword 是否与系统预制关键字一样
         if (topic.equals(MixAll.DEFAULT_TOPIC)) {
             throw new MQClientException(
                 String.format("The topic[%s] is conflict with default topic.", topic), null);

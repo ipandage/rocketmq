@@ -1,0 +1,24 @@
+@startuml
+hide footbox
+title 发送消息
+autonumber
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+DefaultMQProducer -> DefaultMQProducerImpl: send()
+DefaultMQProducerImpl -> DefaultMQProducerImpl: send()
+DefaultMQProducerImpl -> DefaultMQProducerImpl: sendDefaultImpl()
+DefaultMQProducerImpl -> DefaultMQProducerImpl: tryToFindTopicPublishInfo()
+DefaultMQProducerImpl -> MQClientInstance: updateTopicRouteInfoFromNameServer()
+MQClientInstance -> MQClientAPIImpl: getDefaultTopicRouteInfoFromNameServer()
+MQClientInstance <-- MQClientAPIImpl
+DefaultMQProducerImpl <-- MQClientInstance
+
+DefaultMQProducerImpl -> MQFaultStrategy: selectOneMessageQueue()
+DefaultMQProducerImpl -> DefaultMQProducerImpl: sendKernelImpl()
+DefaultMQProducerImpl -> MQClientAPIImpl: sendMessage()
+MQClientAPIImpl -> MQClientAPIImpl: sendMessageSync()
+MQClientAPIImpl -> NettyRemotingClient: invokeSync()
+NettyRemotingClient -> NettyRemotingAbstract: invokeSyncImpl()
+
+@enduml

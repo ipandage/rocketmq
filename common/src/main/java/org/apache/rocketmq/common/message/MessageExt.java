@@ -33,7 +33,7 @@ public class MessageExt extends Message {
     private int sysFlag;
     private long bornTimestamp;
     private SocketAddress bornHost;
-
+    // 存储时间戳
     private long storeTimestamp;
     private SocketAddress storeHost;
     private String msgId;

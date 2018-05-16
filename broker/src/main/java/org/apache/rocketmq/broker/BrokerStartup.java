@@ -53,6 +53,7 @@ public class BrokerStartup {
     public static Logger log;
 
     public static void main(String[] args) {
+        System.setProperty(MixAll.ROCKETMQ_HOME_PROPERTY, "/Users/admin/Documents/git_workspace/source_read/rocketmq/distribution");
         start(createBrokerController(args));
     }
 

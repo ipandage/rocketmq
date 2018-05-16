@@ -89,6 +89,7 @@ public class MQClientInstance {
     private final int instanceIndex;
     private final String clientId;
     private final long bootTimestamp = System.currentTimeMillis();
+    // 生产者table
     private final ConcurrentMap<String/* group */, MQProducerInner> producerTable = new ConcurrentHashMap<String, MQProducerInner>();
     private final ConcurrentMap<String/* group */, MQConsumerInner> consumerTable = new ConcurrentHashMap<String, MQConsumerInner>();
     private final ConcurrentMap<String/* group */, MQAdminExtInner> adminExtTable = new ConcurrentHashMap<String, MQAdminExtInner>();
@@ -98,6 +99,7 @@ public class MQClientInstance {
     private final ConcurrentMap<String/* Topic */, TopicRouteData> topicRouteTable = new ConcurrentHashMap<String, TopicRouteData>();
     private final Lock lockNamesrv = new ReentrantLock();
     private final Lock lockHeartbeat = new ReentrantLock();
+    // broker 地址表
     private final ConcurrentMap<String/* Broker Name */, HashMap<Long/* brokerId */, String/* address */>> brokerAddrTable =
         new ConcurrentHashMap<String, HashMap<Long, String>>();
     private final ConcurrentMap<String/* Broker Name */, HashMap<String/* address */, Integer>> brokerVersionTable =
@@ -220,6 +222,10 @@ public class MQClientInstance {
         return mqList;
     }
 
+    /**
+     * 启动
+     * @throws MQClientException
+     */
     public void start() throws MQClientException {
 
         synchronized (this) {
@@ -227,18 +233,19 @@ public class MQClientInstance {
                 case CREATE_JUST:
                     this.serviceState = ServiceState.START_FAILED;
                     // If not specified,looking address from name server
+                    this.clientConfig.setNamesrvAddr(null);
                     if (null == this.clientConfig.getNamesrvAddr()) {
                         this.mQClientAPIImpl.fetchNameServerAddr();
                     }
-                    // Start request-response channel
+                    // Start request-response channel 启动请求响应通道
                     this.mQClientAPIImpl.start();
-                    // Start various schedule tasks
+                    // Start various schedule tasks 启动定时任务
                     this.startScheduledTask();
-                    // Start pull service
+                    // Start pull service 启动拉取服务
                     this.pullMessageService.start();
-                    // Start rebalance service
+                    // Start rebalance service 启动负载服务
                     this.rebalanceService.start();
-                    // Start push service
+                    // Start push service 启动推送服务
                     this.defaultMQProducer.getDefaultMQProducerImpl().start(false);
                     log.info("the client factory [{}] start OK", this.clientId);
                     this.serviceState = ServiceState.RUNNING;
@@ -447,6 +454,9 @@ public class MQClientInstance {
         }
     }
 
+    /**
+     * 发送心跳给所有的broker
+     */
     public void sendHeartbeatToAllBrokerWithLock() {
         if (this.lockHeartbeat.tryLock()) {
             try {
@@ -488,6 +498,11 @@ public class MQClientInstance {
         }
     }
 
+    /**
+     * 更新主题路由信息从名称服务器
+     * @param topic
+     * @return
+     */
     public boolean updateTopicRouteInfoFromNameServer(final String topic) {
         return updateTopicRouteInfoFromNameServer(topic, false, null);
     }
@@ -514,6 +529,8 @@ public class MQClientInstance {
         final HeartbeatData heartbeatData = this.prepareHeartbeatData();
         final boolean producerEmpty = heartbeatData.getProducerDataSet().isEmpty();
         final boolean consumerEmpty = heartbeatData.getConsumerDataSet().isEmpty();
+
+        // 处理 producer为空 并且 consumer为空的情况
         if (producerEmpty && consumerEmpty) {
             log.warn("sending heartbeat, but no consumer and no producer");
             return;
@@ -585,9 +602,17 @@ public class MQClientInstance {
         }
     }
 
+    /**
+     * 更新topic 路由信息从name server
+     * @param topic
+     * @param isDefault
+     * @param defaultMQProducer
+     * @return
+     */
     public boolean updateTopicRouteInfoFromNameServer(final String topic, boolean isDefault,
         DefaultMQProducer defaultMQProducer) {
         try {
+            // 开启名称服务锁
             if (this.lockNamesrv.tryLock(LOCK_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
                 try {
                     TopicRouteData topicRouteData;
@@ -670,6 +695,10 @@ public class MQClientInstance {
         return false;
     }
 
+    /**
+     * 准备心跳数据
+     * @return
+     */
     private HeartbeatData prepareHeartbeatData() {
         HeartbeatData heartbeatData = new HeartbeatData();
 
@@ -906,6 +935,12 @@ public class MQClientInstance {
         }
     }
 
+    /**
+     * 注册生产者
+     * @param group
+     * @param producer
+     * @return
+     */
     public boolean registerProducer(final String group, final DefaultMQProducerImpl producer) {
         if (null == group || null == producer) {
             return false;
@@ -1007,6 +1042,13 @@ public class MQClientInstance {
         return null;
     }
 
+    /**
+     * 获得broker 订阅中的地址
+     * @param brokerName
+     * @param brokerId
+     * @param onlyThisBroker
+     * @return
+     */
     public FindBrokerResult findBrokerAddressInSubscribe(
         final String brokerName,
         final long brokerId,

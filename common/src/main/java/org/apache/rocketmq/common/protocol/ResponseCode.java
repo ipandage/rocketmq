@@ -27,7 +27,7 @@ public class ResponseCode extends RemotingSysResponseCode {
 
     public static final int FLUSH_SLAVE_TIMEOUT = 12;
 
-    public static final int MESSAGE_ILLEGAL = 13;
+    public static final int MESSAGE_ILLEGAL = 13; // 消息不合法
 
     public static final int SERVICE_NOT_AVAILABLE = 14;
 
@@ -37,7 +37,7 @@ public class ResponseCode extends RemotingSysResponseCode {
 
     public static final int TOPIC_NOT_EXIST = 17;
     public static final int TOPIC_EXIST_ALREADY = 18;
-    public static final int PULL_NOT_FOUND = 19;
+    public static final int PULL_NOT_FOUND = 19; // 没有拉取到
 
     public static final int PULL_RETRY_IMMEDIATELY = 20;
 
