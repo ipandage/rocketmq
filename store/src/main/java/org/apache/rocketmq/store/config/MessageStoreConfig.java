@@ -74,7 +74,8 @@ public class MessageStoreConfig {
     // When to delete,default is at 4 am
     @ImportantField
     private String deleteWhen = "04";
-    private int diskMaxUsedSpaceRatio = 75;
+    // private int diskMaxUsedSpaceRatio = 75; // todo gxg 测试临时修改
+    private int diskMaxUsedSpaceRatio = 96;
     // The number of hours to keep a log file before deleting it (in hours)
     @ImportantField
     private int fileReservedTime = 72;
@@ -294,6 +295,7 @@ public class MessageStoreConfig {
         this.deleteWhen = deleteWhen;
     }
 
+    // 获得硬盘最大使用空间比率
     public int getDiskMaxUsedSpaceRatio() {
         if (this.diskMaxUsedSpaceRatio < 10)
             return 10;

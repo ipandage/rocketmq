@@ -50,13 +50,18 @@ import org.slf4j.LoggerFactory;
  */
 public class RouteInfoManager {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
+    // 默认两分钟
     private final static long BROKER_CHANNEL_EXPIRED_TIME = 1000 * 60 * 2;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
+	// Topic消息队列路由信息，消息发送时根据路由表负载
     private final HashMap<String/* topic */, List<QueueData>> topicQueueTable;
+	// Broker基础信息，包含brokerName，所属集群名称，主备Broker地址
     private final HashMap<String/* brokerName */, BrokerData> brokerAddrTable;
+	// Broker集群名称，存储集群中所有Broker名称
     private final HashMap<String/* clusterName */, Set<String/* brokerName */>> clusterAddrTable;
-    // 获得broker 链接
+    // Broker状态信息，NameServer每次收到心跳包时，都会替换该信息
     private final HashMap<String/* brokerAddr */, BrokerLiveInfo> brokerLiveTable;
+	// Broker上的FilterServer列表，用于类模式消息过滤
     private final HashMap<String/* brokerAddr */, List<String>/* Filter Server */> filterServerTable;
 
     public RouteInfoManager() {
@@ -115,6 +120,7 @@ public class RouteInfoManager {
         RegisterBrokerResult result = new RegisterBrokerResult();
         try {
             try {
+            	// 路由注册需要加锁，防止并发修改路由表
                 this.lock.writeLock().lockInterruptibly();
 
                 Set<String> brokerNames = this.clusterAddrTable.get(clusterName);
@@ -126,6 +132,7 @@ public class RouteInfoManager {
 
                 boolean registerFirst = false;
 
+				// 2 维护BrokerData信息
                 BrokerData brokerData = this.brokerAddrTable.get(brokerName);
                 if (null == brokerData) {
                     registerFirst = true;
@@ -135,6 +142,7 @@ public class RouteInfoManager {
                 String oldAddr = brokerData.getBrokerAddrs().put(brokerId, brokerAddr);
                 registerFirst = registerFirst || (null == oldAddr);
 
+                // 3 如果Broker为Master，并且Broker Topic配置信息发生变化或者是初次注册，则需要创建或更新Topic路由元数据
                 if (null != topicConfigWrapper
                     && MixAll.MASTER_ID == brokerId) {
                     if (this.isBrokerTopicConfigChanged(brokerAddr, topicConfigWrapper.getDataVersion())
@@ -149,6 +157,7 @@ public class RouteInfoManager {
                     }
                 }
 
+				// 4 更新 BrokerLiveInfo，存活Broker信息表，BrokerLiveInfo 是执行路由删除的重要依据
                 BrokerLiveInfo prevBrokerLiveInfo = this.brokerLiveTable.put(brokerAddr,
                     new BrokerLiveInfo(
                         System.currentTimeMillis(),
@@ -159,6 +168,7 @@ public class RouteInfoManager {
                     log.info("new broker registered, {} HAServer: {}", brokerAddr, haServerAddr);
                 }
 
+                // 5 注册Broker的过滤器Server地址列表，一个Broker会关联多个FilterServer消息过滤服务器
                 if (filterServerList != null) {
                     if (filterServerList.isEmpty()) {
                         this.filterServerTable.remove(brokerAddr);
@@ -196,6 +206,7 @@ public class RouteInfoManager {
         return false;
     }
 
+    // 根据TopicConfig 创建 QueueData 数据结构，然后更新 topicQueueTable
     private void createAndUpdateQueueData(final String brokerName, final TopicConfig topicConfig) {
         QueueData queueData = new QueueData();
         queueData.setBrokerName(brokerName);
@@ -411,13 +422,15 @@ public class RouteInfoManager {
     }
 
     /**
-     * 扫描没有存活的broker
+     * 移除处于不激活状态的Broker
+	 * 当Broker关闭时 会自动触发钩子函数，向NameServer 发送取消注册事件，准实时移除Broker
      */
     public void scanNotActiveBroker() {
         Iterator<Entry<String, BrokerLiveInfo>> it = this.brokerLiveTable.entrySet().iterator();
         while (it.hasNext()) {
             Entry<String, BrokerLiveInfo> next = it.next();
             long last = next.getValue().getLastUpdateTimestamp();
+			System.out.println((last + BROKER_CHANNEL_EXPIRED_TIME) - System.currentTimeMillis());
             if ((last + BROKER_CHANNEL_EXPIRED_TIME) < System.currentTimeMillis()) {
                 RemotingUtil.closeChannel(next.getValue().getChannel());
                 it.remove();
@@ -740,6 +753,7 @@ public class RouteInfoManager {
 }
 
 class BrokerLiveInfo {
+	// 存储上次收到Broker心跳包的时间
     private long lastUpdateTimestamp;
     private DataVersion dataVersion;
     private Channel channel;

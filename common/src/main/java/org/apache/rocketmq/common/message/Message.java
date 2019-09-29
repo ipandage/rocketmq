@@ -23,12 +23,12 @@ import java.util.Map;
 
 public class Message implements Serializable {
     private static final long serialVersionUID = 8445773977080406428L;
-    // 主题
+    // 主题topic
     private String topic;
     private int flag;
-    // 属性
+    // 扩展属性
     private Map<String, String> properties;
-    // 内容体
+    // 消息体
     private byte[] body;
 
     public Message() {
@@ -44,12 +44,12 @@ public class Message implements Serializable {
         this.body = body;
 
         if (tags != null && tags.length() > 0)
-            this.setTags(tags);
+            this.setTags(tags); // tag 用于消息过滤
 
         if (keys != null && keys.length() > 0)
-            this.setKeys(keys);
+            this.setKeys(keys); // keys Message索引建，多个空格隔开，RocketMQ可以根据这些key快速检索到信息
 
-        this.setWaitStoreMsgOK(waitStoreMsgOK);
+        this.setWaitStoreMsgOK(waitStoreMsgOK); // 消息发送时是否等消息存储完后再返回
     }
 
     public Message(String topic, String tags, byte[] body) {

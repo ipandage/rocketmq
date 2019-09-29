@@ -146,12 +146,11 @@ public class DefaultMQProducerImpl implements MQProducerInner {
 
                 this.checkConfig();
 
-                // 进程id作为 producerGroup 默认值
+                // 1 检查productGroup是否符合要求，并改变生产者instanceName为进程ID
                 if (!this.defaultMQProducer.getProducerGroup().equals(MixAll.CLIENT_INNER_PRODUCER_GROUP)) {
                     this.defaultMQProducer.changeInstanceNameToPID();
                 }
 
-                // mQClientFactory 负责与 broker 和 name server 通信
                 this.mQClientFactory = MQClientManager.getInstance().getAndCreateMQClientInstance(this.defaultMQProducer, rpcHook);
 
                 // 将 producerGroup producer 注册到 producerTable ，一个 producerTable 对应一个 producer

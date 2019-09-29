@@ -81,19 +81,24 @@ public class NamesrvController {
 
         this.registerProcessor();
 
-        // 增加定时任务
+        // 开启两个心跳检测的定时任务
+
+        // 每隔10秒种执行一次
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
             public void run() {
+            	// 移除处于不激活状态的Broker
                 NamesrvController.this.routeInfoManager.scanNotActiveBroker();
             }
         }, 5, 10, TimeUnit.SECONDS);
 
+		// 每隔10分钟种执行一次
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
             public void run() {
+				// 打印KV配置
                 NamesrvController.this.kvConfigManager.printAllPeriodically();
             }
         }, 1, 10, TimeUnit.MINUTES);

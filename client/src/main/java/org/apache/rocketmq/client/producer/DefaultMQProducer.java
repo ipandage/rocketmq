@@ -71,26 +71,31 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      *
      * See {@linktourl http://rocketmq.apache.org/docs/core-concept/} for more discussion.
      */
+    // 生产者所属组，消息服务器在回查事务状态时会随机选择一个该组中任何一个生产者发起事务回查请求，
     private String producerGroup;
 
     /**
      * Just for testing or demo program
      */
+    // 默认topic key
     private String createTopicKey = MixAll.DEFAULT_TOPIC;
 
     /**
      * Number of queues to create per default topic.
      */
+    // 默认主题在每一个Broker队列数量
     private volatile int defaultTopicQueueNums = 4;
 
     /**
      * Timeout for sending messages.
      */
+    // 发送消息默认超时时间，默认3s
     private int sendMsgTimeout = 3000;
 
     /**
      * Compress message body threshold, namely, message body larger than 4k will be compressed on default.
      */
+    // 消息体超过该值则启用压缩，默认4k
     private int compressMsgBodyOverHowmuch = 1024 * 4;
 
     /**
@@ -99,6 +104,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      *
      * This may potentially cause message duplication which is up to application developers to resolve.
      */
+    // 同步方式发送消息重试次数，默认为2，总共执行3次
     private int retryTimesWhenSendFailed = 2;
 
     /**
@@ -107,16 +113,19 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
      *
      * This may potentially cause message duplication which is up to application developers to resolve.
      */
+    // 异步方式发送消息重试次数，默认为2
     private int retryTimesWhenSendAsyncFailed = 2;
 
     /**
      * Indicate whether to retry another broker on sending failure internally.
      */
+    // 消息重试时选择另外一个Broker时，是否不等待存储结果就返回，默认为false
     private boolean retryAnotherBrokerWhenNotStoreOK = false;
 
     /**
-     * Maximum allowed message size in bytes. 允许最大的消息大小 4M
+     * Maximum allowed message size in bytes.
      */
+    // 允许发送的最大消息长度，默认4M，该值最大值为 2的32次方 - 1
     private int maxMessageSize = 1024 * 1024 * 4; // 4M
 
     /**

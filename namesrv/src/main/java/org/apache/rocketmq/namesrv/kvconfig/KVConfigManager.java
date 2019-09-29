@@ -170,6 +170,7 @@ public class KVConfigManager {
         return null;
     }
 
+    // 打印KV配置
     public void printAllPeriodically() {
         try {
             this.lock.readLock().lockInterruptibly();

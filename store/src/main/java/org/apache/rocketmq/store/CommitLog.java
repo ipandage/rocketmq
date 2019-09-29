@@ -371,19 +371,19 @@ public class CommitLog {
      * @return
      */
     private static int calMsgLength(int bodyLength, int topicLength, int propertiesLength) {
-        final int msgLen = 4 //TOTALSIZE
-            + 4 //MAGICCODE
-            + 4 //BODYCRC
-            + 4 //QUEUEID
-            + 4 //FLAG
-            + 8 //QUEUEOFFSET
-            + 8 //PHYSICALOFFSET
-            + 4 //SYSFLAG
-            + 8 //BORNTIMESTAMP
-            + 8 //BORNHOST
-            + 8 //STORETIMESTAMP
-            + 8 //STOREHOSTADDRESS
-            + 4 //RECONSUMETIMES
+        final int msgLen = 4 //TOTALSIZE 消息条目的总长度
+            + 4 //MAGICCODE 魔术 0xdaa320a7
+            + 4 //BODYCRC 消息体crc校验码
+            + 4 //QUEUEID 消息消费队列ID
+            + 4 //FLAG 消息FlAG RocketMQ不作处理，供应用程序使用
+            + 8 //QUEUEOFFSET 消息在消息消费队列中的偏移量
+            + 8 //PHYSICALOFFSET 消息在CommitLog文件中的偏移量
+            + 4 //SYSFLAG 消息系统FLAG，例如是否压缩，是否事务消息等
+            + 8 //BORNTIMESTAMP 消息生产者调用消息发送API的时间戳
+            + 8 //BORNHOST 消息发送者IP、端口号
+            + 8 //STORETIMESTAMP 消息存储时间戳
+            + 8 //STOREHOSTADDRESS Broker服务器IP+端口号
+            + 4 //RECONSUMETIMES 消息重试次数
             + 8 //Prepared Transaction Offset
             + 4 + (bodyLength > 0 ? bodyLength : 0) //BODY
             + 1 + topicLength //TOPIC
@@ -1052,8 +1052,11 @@ public class CommitLog {
     }
 
     public static class GroupCommitRequest {
+    	// 刷盘点偏移量
         private final long nextOffset;
+        // 倒记数锁存器
         private final CountDownLatch countDownLatch = new CountDownLatch(1);
+        // 刷盘结果 初始为false
         private volatile boolean flushOK = false;
 
         public GroupCommitRequest(long nextOffset) {
@@ -1070,12 +1073,13 @@ public class CommitLog {
         }
 
         /**
-         * 等待刷新
+         * 等待刷新 默认为5s
          * @param timeout
          * @return
          */
         public boolean waitForFlush(long timeout) {
             try {
+            	// 阻塞等待刷盘结果
                 this.countDownLatch.await(timeout, TimeUnit.MILLISECONDS);
                 return this.flushOK;
             } catch (InterruptedException e) {

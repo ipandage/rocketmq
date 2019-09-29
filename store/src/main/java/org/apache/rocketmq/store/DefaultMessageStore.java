@@ -1176,7 +1176,9 @@ public class DefaultMessageStore implements MessageStore {
             public void run() {
                 DefaultMessageStore.this.cleanFilesPeriodically();
             }
-        }, 1000 * 60, this.messageStoreConfig.getCleanResourceInterval(), TimeUnit.MILLISECONDS);
+        }, 1000 * 1, this.messageStoreConfig.getCleanResourceInterval(), TimeUnit.MILLISECONDS);
+        // todo gxg 时间测试使用
+        // }, 1000 * 60, this.messageStoreConfig.getCleanResourceInterval(), TimeUnit.MILLISECONDS);
 
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -1218,7 +1220,9 @@ public class DefaultMessageStore implements MessageStore {
      * 清理过期文件
      */
     private void cleanFilesPeriodically() {
+    	// 清除消息存储文件
         this.cleanCommitLogService.run();
+        // 清除消息消费队列文件
         this.cleanConsumeQueueService.run();
     }
 
@@ -1445,6 +1449,7 @@ public class DefaultMessageStore implements MessageStore {
     class CleanCommitLogService {
 
         private final static int MAX_MANUAL_DELETE_FILE_TIMES = 20;
+        // 磁盘空间告警级别比率
         private final double diskSpaceWarningLevelRatio =
             Double.parseDouble(System.getProperty("rocketmq.broker.diskSpaceWarningLevelRatio", "0.90"));
 
@@ -1454,6 +1459,7 @@ public class DefaultMessageStore implements MessageStore {
 
         private volatile int manualDeleteFileSeveralTimes = 0;
 
+        // 立即清除标识 默认false
         private volatile boolean cleanImmediately = false;
 
         public void excuteDeleteFilesManualy() {
@@ -1473,8 +1479,11 @@ public class DefaultMessageStore implements MessageStore {
 
         private void deleteExpiredFiles() {
             int deleteCount = 0;
+            // 文件保留时间，文件最后一次更新时间到现在，如果超过了该时间，则认为是过期文件，可以被删除
             long fileReservedTime = DefaultMessageStore.this.getMessageStoreConfig().getFileReservedTime();
+            // 删除物理文件的间隔
             int deletePhysicFilesInterval = DefaultMessageStore.this.getMessageStoreConfig().getDeleteCommitLogFilesInterval();
+            // 第一次被拒绝删除之后能保留的最大时间
             int destroyMapedFileIntervalForcibly = DefaultMessageStore.this.getMessageStoreConfig().getDestroyMapedFileIntervalForcibly();
 
             boolean timeup = this.isTimeToDelete();
@@ -1532,6 +1541,7 @@ public class DefaultMessageStore implements MessageStore {
             return false;
         }
 
+        // 磁盘空间是否充足
         private boolean isSpaceToDelete() {
             double ratio = DefaultMessageStore.this.getMessageStoreConfig().getDiskMaxUsedSpaceRatio() / 100.0;
 
@@ -1611,6 +1621,7 @@ public class DefaultMessageStore implements MessageStore {
             }
         }
 
+        // 删除过期文件
         private void deleteExpiredFiles() {
             int deleteLogicsFilesInterval = DefaultMessageStore.this.getMessageStoreConfig().getDeleteConsumeQueueFilesInterval();
 

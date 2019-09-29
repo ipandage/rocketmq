@@ -27,6 +27,7 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
  */
 public interface MQAdmin {
     /**
+	 * 创建主题
      * Creates an topic
      *
      * @param key accesskey
@@ -39,15 +40,16 @@ public interface MQAdmin {
     /**
      * Creates an topic
      *
-     * @param key accesskey
-     * @param newTopic topic name
-     * @param queueNum topic's queue number
-     * @param topicSysFlag topic system flag
+     * @param key accesskey 目前未实际作用
+     * @param newTopic topic name 主题名称
+     * @param queueNum topic's queue number 队列数量
+     * @param topicSysFlag topic system flag 主题系统标签
      */
     void createTopic(String key, String newTopic, int queueNum, int topicSysFlag)
         throws MQClientException;
 
     /**
+	 * 根据时间戳从队列中查找其偏移量
      * Gets the message queue offset according to some time in milliseconds<br>
      * be cautious to call because of more IO overhead
      *
@@ -58,6 +60,7 @@ public interface MQAdmin {
     long searchOffset(final MessageQueue mq, final long timestamp) throws MQClientException;
 
     /**
+	 * 查找该队列中最大的物理偏移量
      * Gets the max offset
      *
      * @param mq Instance of MessageQueue
@@ -66,6 +69,7 @@ public interface MQAdmin {
     long maxOffset(final MessageQueue mq) throws MQClientException;
 
     /**
+	 * 查找该队列中最小的物理偏移量
      * Gets the minimum offset
      *
      * @param mq Instance of MessageQueue
@@ -82,6 +86,7 @@ public interface MQAdmin {
     long earliestMsgStoreTime(final MessageQueue mq) throws MQClientException;
 
     /**
+	 * 根据消息偏移量查找消息
      * Query message according tto message id
      *
      * @param offsetMsgId message id
@@ -91,19 +96,21 @@ public interface MQAdmin {
         InterruptedException, MQClientException;
 
     /**
+	 * 根据条件查询消息
      * Query messages
      *
-     * @param topic message topic
-     * @param key message key index word
-     * @param maxNum max message number
-     * @param begin from when
-     * @param end to when
+     * @param topic message topic 消息主题
+     * @param key message key index word 消息索引字段
+     * @param maxNum max message number 本次最多取出消息条数
+     * @param begin from when 开始时间
+     * @param end to when 结束时间
      * @return Instance of QueryResult
      */
     QueryResult queryMessage(final String topic, final String key, final int maxNum, final long begin,
         final long end) throws MQClientException, InterruptedException;
 
     /**
+	 * 根据主题和消息ID查找消息
      * @return The {@code MessageExt} of given msgId
      */
     MessageExt viewMessage(String topic,

@@ -58,7 +58,8 @@ public class MessageDecoder {
         + 8; // 14 Prepared Transaction Offset
 
     /**
-     * 创建消息Id
+     * 创建全局唯一消息Id
+	 * 4字节IP + 4字节端口号 + 8字节消息偏移量
      * @param input
      * @param addr
      * @param offset
