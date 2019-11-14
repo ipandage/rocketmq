@@ -53,9 +53,6 @@ public class BrokerStartup {
     public static Logger log;
 
     public static void main(String[] args) {
-		// System.out.println(System.getProperty("user.home"));
-        System.setProperty("user.home", "/Users/72cy-0101-01-0009/Documents/rocketmq");
-        // System.setProperty(MixAll.ROCKETMQ_HOME_PROPERTY, "/Users/admin/Documents/git_workspace/source_read/rocketmq/distribution");
         start(createBrokerController(args));
     }
 
